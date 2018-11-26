@@ -1,12 +1,15 @@
 import Link from 'next/link';
+import { Logo, StyledHeader } from '../styles/Header';
 import Nav from './Nav';
 
 const Header = () => (
-  <div>
+  <StyledHeader>
     <div className="bar">
-      <Link href="/">
-        <a> Flex Fits </a>
-      </Link>
+      <Logo>
+        <Link href="/">
+          <a> Flex Fits </a>
+        </Link>
+      </Logo>
       <Nav />
     </div>
     <div className="sub-bar">
@@ -15,7 +18,7 @@ const Header = () => (
     <div>
       Cart
     </div>
-  </div>
+  </StyledHeader>
 )
 
 export default Header;
