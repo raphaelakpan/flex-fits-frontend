@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { Theme, StyledPage, StyledPageContainer } from '../styles/Page';
+import { StyledPage, StyledPageContainer } from '../styles/Page';
+import Theme from '../styles/Theme';
 import Header from './Header';
 import Meta from './Meta';
 
