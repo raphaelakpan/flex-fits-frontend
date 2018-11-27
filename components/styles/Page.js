@@ -8,7 +8,6 @@ export const StyledPage = styled.div`
 
 export const StyledPageContainer = styled.div`
   max-width: ${props => props.theme.maxWidth};
-  background: ${props => props.theme.primary};
   padding: 2rem;
   margin: 0 auto;
 `;
