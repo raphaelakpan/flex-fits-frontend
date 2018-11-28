@@ -8,15 +8,15 @@ import Router from 'next/router';
 
 class CreateItem extends Component {
   state = {
-    title: 'Yoyo',
-    description: 'Yo Yo Yo',
-    image: 'yo.jpg',
-    largeImage: 'big-yo.jpg',
-    price: 1000,
+    title: '',
+    description: '',
+    image: '',
+    largeImage: '',
+    price: 0,
   }
 
   handleChange = e => {
-    const getValue = value => (type === 'number' ? parseFloat(value || 0) : value);
+    const getValue = value => (type === 'number' && value ? parseFloat(value) : value);
 
     const { name, type, value } = e.target;
     this.setState({ [name]: getValue(value) });
@@ -31,8 +31,25 @@ class CreateItem extends Component {
     })
   }
 
+  handleFileUpload = async e => {
+    const data = new FormData();
+    data.append('file', e.target.files[0]);
+    data.append('upload_preset', 'flexfits');
+
+    const response = await fetch('https://api.cloudinary.com/v1_1/raphaelakpan/image/upload', {
+      method: 'POST',
+      body: data
+    });
+
+    const file = await response.json();
+    this.setState({
+      image: file.secure_url,
+      largeImage: file.eager[0].secure_url,
+    });
+  }
+
   render() {
-    const { title, description, price } = this.state;
+    const { title, description, price, image } = this.state;
     return (
       <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
         {(createItem, { loading, error }) => (
@@ -40,9 +57,25 @@ class CreateItem extends Component {
             <h2>Sell an Item</h2>
             {error && <ErrorMessage error={error} />}
             <fieldset disabled={loading} aria-busy={loading}>
-              {loading && <div className="loading">
-                <i className="fa fa-2x fa-sun"></i>
-              </div>}
+              {loading &&
+                <div className="loading">
+                  <i className="fa fa-2x fa-sun"></i>
+                </div>
+              }
+              <label htmlFor="file">
+                Image
+                <input
+                  id="file"
+                  type="file"
+                  placeholder="Upload an Image"
+                  name="file"
+                  accept="image/*"
+                  onChange={this.handleFileUpload}
+                  required
+                  />
+                  {image && <img className="preview" src={image} alt="Image Preview"/> }
+              </label>
+
               <label htmlFor="title">
                 Title
                 <input

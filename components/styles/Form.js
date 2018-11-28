@@ -41,10 +41,16 @@ const Form = styled.form`
   textarea {
     resize: none;
   }
+  .preview {
+    display: block;
+    margin: 1rem auto;
+    border: 1px solid ${props => props.theme.primary};
+    width: 250px;
+  }
   button,
   input[type='submit'] {
     width: auto;
-    background: ${props => props.theme.primary};;
+    background: ${props => props.theme.primary};
     color: white;
     border: 0;
     font-size: 2rem;
