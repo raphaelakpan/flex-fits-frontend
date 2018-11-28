@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo';
-import { ALL_ITEMS_QUERY } from './queries/Items';
-import { Center, ItemsList } from './styles/Items';
+import { ALL_ITEMS_QUERY } from '../queries/Items';
+import { Center, ItemsList } from '../styles/Items';
 import Item from './Item';
 
 class Items extends Component {

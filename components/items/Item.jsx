@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import StyledItem from './styles/Item';
-import Title from './styles/Title';
-import PriceTag from './styles/PriceTag';
-import formatMoney from '../lib/formatMoney';
+import StyledItem from '../styles/Item';
+import Title from '../styles/Title';
+import PriceTag from '../styles/PriceTag';
+import formatMoney from '../../lib/formatMoney';
 
 class Item extends Component {
   static propTypes = {
