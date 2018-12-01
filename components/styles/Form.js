@@ -20,6 +20,7 @@ const Form = styled.form`
   font-weight: 600;
   max-width: 600px;
   margin: 0 auto;
+  position: relative;
   label {
     display: block;
     margin-bottom: 1rem;
@@ -55,7 +56,7 @@ const Form = styled.form`
     border: 0;
     font-size: 2rem;
     font-weight: 600;
-    padding: 0.5rem 1.2rem;
+    padding: 0.5rem 1.5rem;
     cursor: pointer;
     border-radius: 50px;
     &:hover {
@@ -70,8 +71,9 @@ const Form = styled.form`
       opacity: 0.5;
     }
     .loading {
-      display: flex;
-      justify-content: center;
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
       .fa{
         animation: ${spin} 1s linear infinite;
         color: ${props => props.theme.primary}

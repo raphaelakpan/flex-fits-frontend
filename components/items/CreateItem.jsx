@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import formatMoney from '../../lib/formatMoney';
 import Form from '../styles/Form';
-import { CREATE_ITEM_MUTATION } from '../queries/CreateItem';
+import { CREATE_ITEM_MUTATION } from '../queries/items';
 import ErrorMessage from '../common/ErrorMessage';
 import Router from 'next/router';
 
@@ -111,6 +111,7 @@ class CreateItem extends Component {
                   value={description}
                   onChange={this.handleChange}
                   required
+                  rows="5"
                   />
               </label>
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo';
-import { ALL_ITEMS_QUERY } from '../queries/Items';
+import { ALL_ITEMS_QUERY } from '../queries/items';
 import { Center, ItemsList } from '../styles/Items';
 import Item from './Item';
 

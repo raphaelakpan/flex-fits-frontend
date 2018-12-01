@@ -12,3 +12,59 @@ export const ALL_ITEMS_QUERY = gql`
     }
   }
 `;
+
+export const SINGLE_ITEM_QUERY = gql`
+  query SINGLE_ITEM_QUERY($id: ID!) {
+    item(where: { id: $id }) {
+      id
+      title
+      description
+      price
+    }
+  }
+`;
+
+export const CREATE_ITEM_MUTATION = gql`
+  mutation CREATE_ITEM_MUTATION(
+    $title: String!
+    $description: String!
+    $price: Int!
+    $image: String
+    $largeImage: String
+  ){
+    createItem(
+      data: {
+        title: $title
+        description: $description
+        price: $price
+        image: $image
+        largeImage: $largeImage
+      }
+    ) {
+      id
+      title
+    }
+  }
+`;
+
+export const UPDATE_ITEM_MUTATION = gql`
+  mutation UPDATE_ITEM_MUTATION(
+    $id: ID!
+    $title: String
+    $description: String
+    $price: Int
+  ) {
+    updateItem(
+      data: {
+        title: $title
+        description: $description
+        price: $price
+      },
+      where: {
+        id: $id
+      }
+    ) {
+      id
+    }
+  }
+`;

@@ -20,7 +20,7 @@ class Item extends Component {
           {item.image && <img src={item.image} alt={item.Title} /> }
           <Title>
             <Link href={{
-              pathName: "/items",
+              pathname: "/items",
               query: { id: item.id }
             }}>
               <a>{item.title}</a>
@@ -30,7 +30,7 @@ class Item extends Component {
           <p>{item.description}</p>
           <div className="buttonList">
             <Link href={{
-              pathName: "/items",
+              pathname: "/update",
               query: { id: item.id }
             }}>
               <a>Edit &nbsp; <i className="fas fa-edit"></i></a>
