@@ -1,14 +1,4 @@
-import styled, { keyframes } from 'styled-components';
-
-const spin = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-`;
+import styled from 'styled-components';
 
 const Form = styled.form`
   box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
@@ -57,7 +47,6 @@ const Form = styled.form`
     font-size: 2rem;
     font-weight: 600;
     padding: 0.5rem 1.5rem;
-    cursor: pointer;
     border-radius: 50px;
     &:hover {
       opacity: 0.8
@@ -74,10 +63,6 @@ const Form = styled.form`
       position: absolute;
       right: 1rem;
       top: 1rem;
-      .fa{
-        animation: ${spin} 1s linear infinite;
-        color: ${props => props.theme.primary}
-      }
     }
   }
 `;

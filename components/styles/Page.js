@@ -35,4 +35,10 @@ injectGlobal`
     text-decoration: none;
     color: ${Theme.black}
   }
+
+  button,
+  input[type='submit'] {
+    cursor: pointer;
+    border: 0;
+  }
 `;

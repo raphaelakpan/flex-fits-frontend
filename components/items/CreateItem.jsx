@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
+import Router from 'next/router';
 import formatMoney from '../../lib/formatMoney';
 import Form from '../styles/Form';
 import { CREATE_ITEM_MUTATION } from '../queries/items';
 import ErrorMessage from '../common/ErrorMessage';
-import Router from 'next/router';
+import Spinner from '../common/Spinner';
 
 class CreateItem extends Component {
   state = {
@@ -75,25 +76,17 @@ class CreateItem extends Component {
     this.setState(({ uploading }) => ({ uploading: !uploading }));
   }
 
-  static Loading() {
-    return (
-      <div className="loading">
-        <i className="fa fa-2x fa-sun"></i>
-      </div>
-    );
-  }
-
   render() {
     const { uploading, item } = this.state;
     const { title, description, price, image } = item;
     return (
-      <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
+      <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state.item}>
         {(createItem, { loading, error }) => (
           <Form onSubmit={e => this.handleSubmit(e, createItem)}>
             <h2>Sell an Item</h2>
             {error && <ErrorMessage error={error} />}
             <fieldset disabled={loading} aria-busy={loading}>
-              {(loading || uploading) && <CreateItem.Loading /> }
+              {(loading || uploading) && <Spinner /> }
               <label htmlFor="file">
                 Image
                 <input

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
+import Router from 'next/router';
 import formatMoney from '../../lib/formatMoney';
 import Form from '../styles/Form';
 import { UPDATE_ITEM_MUTATION, SINGLE_ITEM_QUERY} from '../queries/items';
 import ErrorMessage from '../common/ErrorMessage';
-import Router from 'next/router';
+import Spinner from '../common/Spinner';
 
 class UpdateItem extends Component {
   state = {
@@ -74,14 +75,6 @@ class UpdateItem extends Component {
     this.setState(({ uploading }) => ({ uploading: !uploading }));
   }
 
-  static Loading() {
-    return (
-      <div className="loading">
-        <i className="fa fa-2x fa-sun"></i>
-      </div>
-    );
-  }
-
   render() {
     const { uploading, item } = this.state;
     const { image } = item;
@@ -91,7 +84,7 @@ class UpdateItem extends Component {
         id: this.props.id
       }}>
         {({ data: { item } }, loading) => {
-          if (loading) return <UpdateItem.Loading />
+          if (loading) return <Spinner />
           if (!item) return <h4>No Item found for ID: "{this.props.id}"</h4>
           return (
             <Mutation mutation={UPDATE_ITEM_MUTATION}>
@@ -100,7 +93,7 @@ class UpdateItem extends Component {
                   <h2>Update Item</h2>
                   {error && <ErrorMessage error={error} />}
                   <fieldset disabled={loading} aria-busy={loading}>
-                    {(loading || uploading) && <UpdateItem.Loading />   }
+                    {(loading || uploading) && <Spinner />   }
 
                     <label htmlFor="file">
                       Image

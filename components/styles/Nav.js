@@ -17,7 +17,6 @@ export const StyledNav = styled.ul`
     font-size: 1em;
     background: none;
     border: 0;
-    cursor: pointer;
     @media (max-width: 700px) {
       font-size: 10px;
       padding: 0 10px;
