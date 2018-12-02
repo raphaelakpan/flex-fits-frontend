@@ -8,18 +8,26 @@ import Router from 'next/router';
 
 class CreateItem extends Component {
   state = {
-    title: '',
-    description: '',
-    image: '',
-    largeImage: '',
-    price: 0,
+    item: {
+      title: '',
+      description: '',
+      image: '',
+      largeImage: '',
+      price: 0,
+    },
+    uploading: false
   }
 
   handleChange = e => {
     const getValue = value => (type === 'number' && value ? parseFloat(value) : value);
 
     const { name, type, value } = e.target;
-    this.setState({ [name]: getValue(value) });
+    this.setState({
+      item: {
+        ...this.state.item,
+        [name]: getValue(value)
+      }
+    });
   }
 
   handleSubmit = async (e, createItem) => {
@@ -32,8 +40,20 @@ class CreateItem extends Component {
   }
 
   handleFileUpload = async e => {
+    const { files } = e.target;
+    if (files.length < 1) {
+      return this.setState({
+        item: {
+          ...this.state.item,
+          image: "",
+          largeImage: "",
+        }
+      });
+    };
+
+    this.toggleUploading();
     const data = new FormData();
-    data.append('file', e.target.files[0]);
+    data.append('file', files[0]);
     data.append('upload_preset', 'flexfits');
 
     const response = await fetch('https://api.cloudinary.com/v1_1/raphaelakpan/image/upload', {
@@ -43,13 +63,29 @@ class CreateItem extends Component {
 
     const file = await response.json();
     this.setState({
-      image: file.secure_url,
-      largeImage: file.eager[0].secure_url,
-    });
+      item: {
+        ...this.state.item,
+        image: file.secure_url,
+        largeImage: file.eager[0].secure_url,
+      }
+    }, this.toggleUploading);
+  }
+
+  toggleUploading = () => {
+    this.setState(({ uploading }) => ({ uploading: !uploading }));
+  }
+
+  static Loading() {
+    return (
+      <div className="loading">
+        <i className="fa fa-2x fa-sun"></i>
+      </div>
+    );
   }
 
   render() {
-    const { title, description, price, image } = this.state;
+    const { uploading, item } = this.state;
+    const { title, description, price, image } = item;
     return (
       <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
         {(createItem, { loading, error }) => (
@@ -57,11 +93,7 @@ class CreateItem extends Component {
             <h2>Sell an Item</h2>
             {error && <ErrorMessage error={error} />}
             <fieldset disabled={loading} aria-busy={loading}>
-              {loading &&
-                <div className="loading">
-                  <i className="fa fa-2x fa-sun"></i>
-                </div>
-              }
+              {(loading || uploading) && <CreateItem.Loading /> }
               <label htmlFor="file">
                 Image
                 <input
@@ -73,7 +105,7 @@ class CreateItem extends Component {
                   onChange={this.handleFileUpload}
                   required
                   />
-                  {image && <img className="preview" src={image} alt="Image Preview"/> }
+                {image && <img className="preview" src={image} alt="Image Preview"/> }
               </label>
 
               <label htmlFor="title">

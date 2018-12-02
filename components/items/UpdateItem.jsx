@@ -7,13 +7,53 @@ import ErrorMessage from '../common/ErrorMessage';
 import Router from 'next/router';
 
 class UpdateItem extends Component {
-  state = { }
+  state = {
+    item: { },
+    uploading: false
+  }
 
   handleChange = e => {
     const getValue = value => (type === 'number' && value ? parseFloat(value) : value);
 
     const { name, type, value } = e.target;
-    this.setState({ [name]: getValue(value) });
+    this.setState({
+      item: {
+        ...this.state.item,
+        [name]: getValue(value)
+      }
+    });
+  }
+
+  handleFileUpload = async e => {
+    const { files } = e.target;
+    if (files.length < 1) {
+      return this.setState({
+        item: {
+          ...this.state.item,
+          image: "",
+          largeImage: "",
+        }
+      });
+    };
+
+    this.toggleUploading();
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'flexfits');
+
+    const response = await fetch('https://api.cloudinary.com/v1_1/raphaelakpan/image/upload', {
+      method: 'POST',
+      body: data
+    });
+
+    const file = await response.json();
+    this.setState({
+      item: {
+        ...this.state.item,
+        image: file.secure_url,
+        largeImage: file.eager[0].secure_url,
+      },
+    }, this.toggleUploading);
   }
 
   handleUpdate = async (e, updateItem) => {
@@ -21,13 +61,17 @@ class UpdateItem extends Component {
     const response = await updateItem({
       variables: {
         id: this.props.id,
-        ...this.state,
+        ...this.state.item,
       }
     });
     Router.push({
       pathname: '/item',
       query: { id: response.data.updateItem.id }
     });
+  }
+
+  toggleUploading = () => {
+    this.setState(({ uploading }) => ({ uploading: !uploading }));
   }
 
   static Loading() {
@@ -39,6 +83,9 @@ class UpdateItem extends Component {
   }
 
   render() {
+    const { uploading, item } = this.state;
+    const { image } = item;
+
     return (
       <Query query={SINGLE_ITEM_QUERY} variables={{
         id: this.props.id
@@ -47,13 +94,26 @@ class UpdateItem extends Component {
           if (loading) return <UpdateItem.Loading />
           if (!item) return <h4>No Item found for ID: "{this.props.id}"</h4>
           return (
-            <Mutation mutation={UPDATE_ITEM_MUTATION} variables={this.state}>
+            <Mutation mutation={UPDATE_ITEM_MUTATION}>
               {(updateItem, { loading, error }) => (
                 <Form onSubmit={e => this.handleUpdate(e, updateItem)}>
                   <h2>Update Item</h2>
                   {error && <ErrorMessage error={error} />}
                   <fieldset disabled={loading} aria-busy={loading}>
-                    {loading && <UpdateItem.Loading />   }
+                    {(loading || uploading) && <UpdateItem.Loading />   }
+
+                    <label htmlFor="file">
+                      Image
+                      <input
+                        id="file"
+                        type="file"
+                        placeholder="Upload an Image"
+                        name="file"
+                        accept="image/*"
+                        onChange={this.handleFileUpload}
+                        />
+                      {(image || item.image) && <img className="preview" src={image || item.image} alt="Image Preview"/>}
+                    </label>
 
                     <label htmlFor="title">
                       Title
@@ -64,7 +124,6 @@ class UpdateItem extends Component {
                         name="title"
                         defaultValue={item.title}
                         onChange={this.handleChange}
-                        required
                         />
                     </label>
 
@@ -77,7 +136,6 @@ class UpdateItem extends Component {
                         name="price"
                         defaultValue={item.price}
                         onChange={this.handleChange}
-                        required
                         />
                     </label>
 
@@ -89,7 +147,6 @@ class UpdateItem extends Component {
                         name="description"
                         defaultValue={item.description}
                         onChange={this.handleChange}
-                        required
                         rows="5"
                         />
                     </label>

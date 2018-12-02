@@ -20,6 +20,8 @@ export const SINGLE_ITEM_QUERY = gql`
       title
       description
       price
+      image
+      largeImage
     }
   }
 `;
@@ -53,12 +55,16 @@ export const UPDATE_ITEM_MUTATION = gql`
     $title: String
     $description: String
     $price: Int
+    $image: String
+    $largeImage: String
   ) {
     updateItem(
       data: {
         title: $title
         description: $description
         price: $price
+        image: $image
+        largeImage: $largeImage
       },
       where: {
         id: $id

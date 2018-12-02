@@ -45,7 +45,7 @@ const Form = styled.form`
   .preview {
     display: block;
     margin: 1rem auto;
-    border: 1px solid ${props => props.theme.primary};
+    border: 1px solid ${props => props.theme.lightGrey};
     width: 250px;
   }
   button,
