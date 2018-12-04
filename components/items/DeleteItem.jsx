@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import styled from 'styled-components';
+import Router from 'next/router';
 import ConfirmDialog from './ConfirmDialog';
 import { DELETE_ITEM_MUTATION, ALL_ITEMS_QUERY } from '../queries/items';
 
@@ -21,11 +22,18 @@ class DeleteItem extends Component {
     }));
   }
 
-  // Manually update the cache on the client to match server
   handleUpdate = (cache, payload) => {
-    const data = cache.readQuery({ query: ALL_ITEMS_QUERY });
-    data.items = data.items.filter(item => item.id !== payload.data.deleteItem.id);
-    cache.writeQuery({ query: ALL_ITEMS_QUERY, data });
+    /** This is to reload the page and refetch current items from the server.
+     * Removing an item from the cache leaves a hole on the page (due to pagination)
+     * When there are items to replace it.
+    */
+    Router.push({ pathname: '/items' });
+    /** Manually update the cache on the client to match server
+     * Hopefully would be relevant in the future
+    */
+    // const data = cache.readQuery({ query: ALL_ITEMS_QUERY });
+    // data.items = data.items.filter(item => item.id !== payload.data.deleteItem.id);
+    // cache.writeQuery({ query: ALL_ITEMS_QUERY, data });
   }
 
   render() {

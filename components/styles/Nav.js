@@ -23,12 +23,11 @@ export const StyledNav = styled.ul`
     }
     &:before {
       content: '';
-      width: 2px;
+      width: 1px;
       background: ${props => props.theme.lightGrey};
       height: 100%;
       left: 0;
       position: absolute;
-      transform: skew(-20deg);
       top: 0;
       bottom: 0;
     }
