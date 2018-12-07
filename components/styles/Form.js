@@ -65,6 +65,10 @@ const Form = styled.form`
       top: 1rem;
     }
   }
+  .error {
+    color: red;
+    padding: 3px;
+  }
 `;
 
 export default Form;

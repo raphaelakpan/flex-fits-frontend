@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo';
 import { ALL_ITEMS_QUERY } from '../queries/items';
-import { Center, ItemsList } from '../styles/Items';
+import { ItemsList } from '../styles/Items';
+import { Center } from '../styles';
 import Item from './Item';
 import Pagination from '../common/Pagination';
 import Spinner from '../common/Spinner';
