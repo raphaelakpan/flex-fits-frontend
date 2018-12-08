@@ -64,10 +64,34 @@ const Form = styled.form`
       right: 1rem;
       top: 1rem;
     }
+    .error {
+      color: red;
+      padding: 3px;
+      border: 0;
+    }
   }
   .error {
     color: red;
-    padding: 3px;
+    padding: 1rem;
+    border: 1px solid red;
+    background: #fff;
+  }
+  .success {
+    color: ${props => props.theme.green};
+    border: 1px solid ${props => props.theme.green};
+    padding: 1rem;
+    background: #fff;
+  }
+  .options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    a {
+      color: #009fe0;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 `;
 

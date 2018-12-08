@@ -2,34 +2,32 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import Link from 'next/link';
 import Form from '../styles/Form';
-import { SIGN_IN_MUTATION, CURRENT_USER_QUERY } from '../queries/users';
+import { REQUEST_PASSWORD_RESET_MUTATION } from '../queries/users';
 import Spinner from '../common/Spinner';
 import { Center } from '../styles';
 
-class Signin extends Component {
+class ForgotPassword extends Component {
   state = {
     user: {
       email: '',
-      password: ''
     },
-    error: {},
+    errors: {},
   }
 
   handleInput = e => {
     const { name, value } = e.target;
     this.setState({
       user: {
-        ...this.state.user,
         [name]: value,
       }
     });
   }
 
-  handleSubmit = async (e, signin) => {
+  handleSubmit = async (e, requestPasswordReset) => {
     e.preventDefault();
     this.resetError();
     try {
-      await signin();
+      await requestPasswordReset();
       this.resetUser();
     } catch(error) {
       this.handleError(error.message);
@@ -38,60 +36,48 @@ class Signin extends Component {
 
   handleError = errorMessage => {
     if (
-      errorMessage.match(/Invalid Password!/)
-    ) {
-      this.setState({
-        error: {
-          ...this.state.error,
-          password: 'Password is invalid!',
-        }
-      })
-    }
-
-    if (
       errorMessage.match(/Email does not exist/)
     ) {
       this.setState({
-        error: {
-          ...this.state.error,
+        errors: {
+          ...this.state.errors,
           email: 'Email was not found!',
         }
-      })
+      });
     }
   }
 
   resetError = () => {
-    this.setState({ error: {} });
+    this.setState({ errors: {} });
   }
 
   resetUser = () => {
     this.setState({
       user: {
         email: '',
-        password: '',
       },
     });
   }
 
   render() {
-    const { email, password } = this.state.user;
-    const { error } = this.state;
+    const { email } = this.state.user;
+    const { errors } = this.state;
 
     return (
       <Mutation
-        mutation={SIGN_IN_MUTATION}
+        mutation={REQUEST_PASSWORD_RESET_MUTATION}
         variables={this.state.user}
-        refetchQueries={[
-          { query: CURRENT_USER_QUERY }
-        ]}
       >
-      {(signin, { loading }) => {
+      {(requestPasswordReset, { loading, error, called }) => {
         return (
-          <Form method="post" onSubmit={e => this.handleSubmit(e, signin)}>
+          <Form method="post" onSubmit={e => this.handleSubmit(e, requestPasswordReset)}>
             <Center>
-              <h2>Sign into your account</h2>
+              <h2>Request password reset</h2>
             </Center>
             {loading && <Spinner />}
+            {!loading && !error && called && (
+              <p className="success"> Check your email address for instructions to reset your Password </p>
+            )}
             <fieldset disabled={loading} aria-busy={loading}>
               <label htmlFor="email">
                 Email
@@ -104,29 +90,15 @@ class Signin extends Component {
                   onChange={this.handleInput}
                   required
                 />
-                {error.email &&
-                  <div className="error">{error.email}</div>
+                {errors.email &&
+                  <div className="error">{errors.email}</div>
                 }
               </label>
-              <label htmlFor="password">
-                Password
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  value={password}
-                  placeholder="Enter your password"
-                  onChange={this.handleInput}
-                  required
-                />
-                {error.password &&
-                  <div className="error">{error.password}</div>
-                }
-              </label>
+
               <div className="options">
-                <button>Sign in</button>
-                <Link href="/forgot_password">
-                  <a>Forgot Password?</a>
+                <button type="submit">Reset Password</button>
+                <Link href="/signin">
+                  <a>Sign in</a>
                 </Link>
               </div>
             </fieldset>
@@ -138,4 +110,4 @@ class Signin extends Component {
   }
 }
 
-export default Signin;
+export default ForgotPassword;

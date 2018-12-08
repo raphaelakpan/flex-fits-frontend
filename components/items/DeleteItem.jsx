@@ -3,7 +3,7 @@ import { Mutation } from 'react-apollo';
 import styled from 'styled-components';
 import Router from 'next/router';
 import ConfirmDialog from './ConfirmDialog';
-import { DELETE_ITEM_MUTATION, ALL_ITEMS_QUERY } from '../queries/items';
+import { DELETE_ITEM_MUTATION } from '../queries/items';
 
 
 const StyledContainer = styled.div`

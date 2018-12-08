@@ -16,6 +16,9 @@ export const StyledDialogContainer = styled.div`
     padding: 3rem;
     font-size: 2rem;
     transform: skew(-3deg);
+    &__wide {
+      width: 600px;
+    }
   }
   .actions {
     display: grid;

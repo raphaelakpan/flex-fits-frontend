@@ -41,4 +41,10 @@ injectGlobal`
     cursor: pointer;
     border: 0;
   }
+
+  .bordered {
+    border: 1px solid ${Theme.primary} !important;
+    color: ${Theme.primary} !important;
+    background: none !important;
+  }
 `;
