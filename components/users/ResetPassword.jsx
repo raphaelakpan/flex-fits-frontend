@@ -4,30 +4,21 @@ import Form from '../styles/Form';
 import { RESET_PASSWORD_MUTATION, CURRENT_USER_QUERY } from '../queries/users';
 import Spinner from '../common/Spinner';
 import { Center } from '../styles';
+import ErrorMessage from '../common/ErrorMessage';
 
 class ForgotPassword extends Component {
   state = {
-    user: {
-      password: '',
-      confirmPassword: ''
-    },
-    errors: {},
+    password: '',
+    confirmPassword: ''
   }
 
   handleInput = e => {
     const { name, value } = e.target;
-    this.setState({
-      user: {
-        ...this.state.user,
-        [name]: value,
-      }
-    });
+    this.setState({ [name]: value });
   }
 
   handleSubmit = async (e, resetPassword) => {
     e.preventDefault();
-    if (!this.validPasswords()) return;
-    this.resetError();
     try {
       await resetPassword({
         variables: {
@@ -35,60 +26,26 @@ class ForgotPassword extends Component {
           resetToken: this.props.resetToken,
         }
       });
-      this.resetUser();
-    } catch(error) {
-      this.handleError(error.message);
-    }
+      this.resetState();
+    } catch { }
   }
 
-  validPasswords = () => {
-    const { password, confirmPassword } = this.state.user;
-    if (password !== confirmPassword) {
-      this.setState({
-        errors: {
-          password: "Passwords do not match!"
-        }
-      });
-      return false
-    }
-    return true;
-  }
-
-  handleError = errorMessage => {
-    if (
-      errorMessage.match(/Invalid or expired token/)
-    ) {
-      this.setState({
-        errors: {
-          message: 'Invalid or expired token. Please reset your password token again',
-        }
-      });
-    }
-  }
-
-  resetError = () => {
-    this.setState({ errors: {} });
-  }
-
-  resetUser = () => {
+  resetState = () => {
     this.setState({
-      user: {
-        password: '',
-        confirmPassword: ''
-      },
+      password: '',
+      confirmPassword: ''
     });
   }
 
   render() {
-    const { password, confirmPassword } = this.state.user;
-    const { errors } = this.state;
+    const { password, confirmPassword } = this.state;
 
     return (
       <Mutation
         mutation={RESET_PASSWORD_MUTATION}
-        variables={this.state.user}
+        variables={this.state}
         refetchQueries={[
-          { query: CURRENT_USER_QUERY}
+          { query: CURRENT_USER_QUERY }
         ]}
       >
       {(resetPassword, { loading, error, called }) => {
@@ -103,9 +60,7 @@ class ForgotPassword extends Component {
             {!loading && !error && called && (
               <p className="success"> Your Password has been successfully reset </p>
             )}
-            {errors.message && (
-              <p className="error">{errors.message}</p>
-            )}
+            {error && <ErrorMessage error={error} />}
             <fieldset disabled={loading} aria-busy={loading}>
               <label htmlFor="password">
                 New Password
@@ -118,9 +73,6 @@ class ForgotPassword extends Component {
                   onChange={this.handleInput}
                   required
                 />
-                {errors.password &&
-                  <div className="error">{errors.password}</div>
-                }
               </label>
 
               <label htmlFor="confirmPassword">
@@ -134,9 +86,6 @@ class ForgotPassword extends Component {
                   onChange={this.handleInput}
                   required
                 />
-                {errors.confirmPassword &&
-                  <div className="error">{errors.confirmPassword}</div>
-                }
               </label>
 
               <button type="submit">Submit</button>

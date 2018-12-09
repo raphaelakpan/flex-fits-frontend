@@ -3,17 +3,16 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { PAGINATION_QUERY } from '../queries/items';
 import StyledPagination from '../styles/Pagination';
-import Spinner from '../common/Spinner';
 import { perPage } from '../../config';
 
 const Pagination = (props) => {
   return (
-    <Query query={PAGINATION_QUERY}>
-        {({ data, loading, error }) => {
-          if (loading) return <Spinner />;
+    <Query query={PAGINATION_QUERY} fetchPolicy="network-only" >
+        {({ data }) => {
           const { count } = data.itemsConnection.aggregate;
           const pages = Math.ceil(count / perPage);
           const page = props.page;
+          if (count < 1) return null;
           return (
               <StyledPagination>
                 <Head>

@@ -64,17 +64,6 @@ const Form = styled.form`
       right: 1rem;
       top: 1rem;
     }
-    .error {
-      color: red;
-      padding: 3px;
-      border: 0;
-    }
-  }
-  .error {
-    color: red;
-    padding: 1rem;
-    border: 1px solid red;
-    background: #fff;
   }
   .success {
     color: ${props => props.theme.green};

@@ -59,16 +59,18 @@ class UpdateItem extends Component {
 
   handleUpdate = async (e, updateItem) => {
     e.preventDefault();
-    const response = await updateItem({
-      variables: {
-        id: this.props.id,
-        ...this.state.item,
-      }
-    });
-    Router.push({
-      pathname: '/item',
-      query: { id: response.data.updateItem.id }
-    });
+    try {
+      const response = await updateItem({
+        variables: {
+          id: this.props.id,
+          ...this.state.item,
+        }
+      });
+      Router.push({
+        pathname: '/item',
+        query: { id: response.data.updateItem.id }
+      });
+    } catch { }
   }
 
   toggleUploading = () => {

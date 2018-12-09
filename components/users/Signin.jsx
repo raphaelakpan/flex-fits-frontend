@@ -5,93 +5,53 @@ import Form from '../styles/Form';
 import { SIGN_IN_MUTATION, CURRENT_USER_QUERY } from '../queries/users';
 import Spinner from '../common/Spinner';
 import { Center } from '../styles';
+import ErrorMessage from '../common/ErrorMessage';
 
 class Signin extends Component {
   state = {
-    user: {
-      email: '',
-      password: ''
-    },
-    error: {},
+    email: '',
+    password: ''
   }
 
   handleInput = e => {
     const { name, value } = e.target;
-    this.setState({
-      user: {
-        ...this.state.user,
-        [name]: value,
-      }
-    });
+    this.setState({ [name]: value });
   }
 
   handleSubmit = async (e, signin) => {
     e.preventDefault();
-    this.resetError();
     try {
       await signin();
-      this.resetUser();
-    } catch(error) {
-      this.handleError(error.message);
-    }
+      this.resetState();
+    } catch { }
   }
 
-  handleError = errorMessage => {
-    if (
-      errorMessage.match(/Invalid Password!/)
-    ) {
-      this.setState({
-        error: {
-          ...this.state.error,
-          password: 'Password is invalid!',
-        }
-      })
-    }
-
-    if (
-      errorMessage.match(/Email does not exist/)
-    ) {
-      this.setState({
-        error: {
-          ...this.state.error,
-          email: 'Email was not found!',
-        }
-      })
-    }
-  }
-
-  resetError = () => {
-    this.setState({ error: {} });
-  }
-
-  resetUser = () => {
+  resetState = () => {
     this.setState({
-      user: {
-        email: '',
-        password: '',
-      },
+      email: '',
+      password: '',
     });
   }
 
   render() {
-    const { email, password } = this.state.user;
-    const { error } = this.state;
+    const { email, password } = this.state;
 
     return (
       <Mutation
         mutation={SIGN_IN_MUTATION}
-        variables={this.state.user}
+        variables={this.state}
         refetchQueries={[
           { query: CURRENT_USER_QUERY }
         ]}
       >
-      {(signin, { loading }) => {
+      {(signin, { loading, error }) => {
         return (
           <Form method="post" onSubmit={e => this.handleSubmit(e, signin)}>
             <Center>
               <h2>Sign into your account</h2>
             </Center>
             {loading && <Spinner />}
+            {error && <ErrorMessage error={error} />}
             <fieldset disabled={loading} aria-busy={loading}>
               <label htmlFor="email">
                 Email
@@ -104,9 +64,6 @@ class Signin extends Component {
                   onChange={this.handleInput}
                   required
                 />
-                {error.email &&
-                  <div className="error">{error.email}</div>
-                }
               </label>
               <label htmlFor="password">
                 Password
@@ -119,9 +76,6 @@ class Signin extends Component {
                   onChange={this.handleInput}
                   required
                 />
-                {error.password &&
-                  <div className="error">{error.password}</div>
-                }
               </label>
               <div className="options">
                 <button>Sign in</button>

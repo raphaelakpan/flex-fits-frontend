@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo';
+import Router from 'next/router';
 import { ALL_ITEMS_QUERY } from '../queries/items';
 import { ItemsList } from '../styles/Items';
 import { Center } from '../styles';
@@ -9,6 +10,13 @@ import Spinner from '../common/Spinner';
 import { perPage } from '../../config';
 
 class Items extends Component {
+  redirectToPreviousPage = () => {
+    Router.push({
+      pathname: '/items',
+      query: { page: this.props.page - 1 }
+    });
+  }
+
   render() {
     const { page } = this.props;
 
@@ -18,7 +26,7 @@ class Items extends Component {
         <Query
           /** "fetchPolicy="network-only" => so that it doesn't read from cache and ensure updated items
            * We loose caching benefits but we always have up to date info on the page when items are added or deleted
-           * A possible fix from NextJS? 🌞
+           * A possible fix from Apollo? 🌞
            */
           fetchPolicy="network-only"
           query={ALL_ITEMS_QUERY}
@@ -26,15 +34,21 @@ class Items extends Component {
             skip: page * perPage - perPage,
           }}
         >
-          {({ data, loading, error }) => {
+          {({ data: { items }, loading, error }) => {
             if (loading) return <Spinner />;
             if (error) return <p>ERROR: {error.message}</p>;
+            if (items.length === 0 && page > 1) return this.redirectToPreviousPage();
+            if (items.length === 0) return (
+              <p>No items to display</p>
+            );
+
             return (
               <ItemsList>
-                {data.items.map(item =>
+                {items.map(item =>
                   <Item
                     item={item}
                     key={item.id}
+                    page={page}
                   />
                 )}
               </ItemsList>

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import styled from 'styled-components';
-import Router from 'next/router';
 import ConfirmDialog from './ConfirmDialog';
-import { DELETE_ITEM_MUTATION } from '../queries/items';
+import { DELETE_ITEM_MUTATION, ALL_ITEMS_QUERY, PAGINATION_QUERY } from '../queries/items';
+import { perPage } from '../../config';
 
 
 const StyledContainer = styled.div`
@@ -23,11 +23,6 @@ class DeleteItem extends Component {
   }
 
   handleUpdate = (cache, payload) => {
-    /** This is to reload the page and refetch current items from the server.
-     * Removing an item from the cache leaves a hole on the page (due to pagination)
-     * When there are items to replace it.
-    */
-    Router.push({ pathname: '/items' });
     /** Manually update the cache on the client to match server
      * Hopefully would be relevant in the future
     */
@@ -38,13 +33,17 @@ class DeleteItem extends Component {
 
   render() {
     const { showDialog } = this.state;
-    const { id } = this.props;
+    const { id, page } = this.props;
 
     return (
       <Mutation
         mutation={DELETE_ITEM_MUTATION}
         variables={{ id }}
         update={this.handleUpdate}
+        refetchQueries={[
+          { query: ALL_ITEMS_QUERY, variables: { skip: (page || 1) * perPage - perPage } },
+          { query: PAGINATION_QUERY }
+        ]}
       >
         {(deleteItem, { loading, error }) => {
           return (

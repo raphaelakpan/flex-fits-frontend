@@ -13,7 +13,7 @@ class Item extends Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, page } = this.props;
 
     return (
       <div>
@@ -37,7 +37,10 @@ class Item extends Component {
               <a>Edit &nbsp; <i className="fas fa-edit"></i></a>
             </Link>
             <button>Add to Cart &nbsp; <i className="fas fa-plus"></i></button>
-            <DeleteItem id={item.id}>
+            <DeleteItem
+              id={item.id}
+              page={page}
+            >
               Delete &nbsp; <i className="fas fa-trash"></i>
             </DeleteItem>
           </div>

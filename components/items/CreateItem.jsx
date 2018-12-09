@@ -33,11 +33,13 @@ class CreateItem extends Component {
 
   handleSubmit = async (e, createItem) => {
     e.preventDefault();
-    const response = await createItem();
-    Router.push({
-      pathname: '/item',
-      query: { id: response.data.createItem.id }
-    })
+    try {
+      const response = await createItem();
+      Router.push({
+        pathname: '/item',
+        query: { id: response.data.createItem.id }
+      });
+    } catch {}
   }
 
   handleFileUpload = async e => {
