@@ -65,12 +65,6 @@ const Form = styled.form`
       top: 1rem;
     }
   }
-  .success {
-    color: ${props => props.theme.green};
-    border: 1px solid ${props => props.theme.green};
-    padding: 1rem;
-    background: #fff;
-  }
   .options {
     display: flex;
     align-items: center;

@@ -1,10 +1,11 @@
 import CreateItem from '../components/items/CreateItem';
+import PleaseSignin from '../components/users/PleaseSignin';
 
 const Sell = props => {
   return (
-    <div>
+    <PleaseSignin>
       <CreateItem />
-    </div>
+    </PleaseSignin>
   )
 }
 

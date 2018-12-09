@@ -47,4 +47,20 @@ injectGlobal`
     color: ${Theme.primary} !important;
     background: none !important;
   }
+
+  .success {
+    color: ${props => props.theme.green};
+    border: 1px solid ${props => props.theme.green};
+    padding: 1rem;
+    background: #fff;
+  }
+
+  .notice {
+    color: ${Theme.blue};
+    border: 1px solid ${Theme.blue};
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    background: rgba(217, 239, 247, 0.5);
+    border-radius: 50px;
+  }
 `;
