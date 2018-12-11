@@ -77,3 +77,28 @@ export const RESET_PASSWORD_MUTATION = gql`
     }
   }
 `;
+
+export const ALL_USERS_QUERY = gql`
+  query ALL_USERS_QUERY {
+    users {
+      id
+      name
+      email
+      permissions
+    }
+  }
+`;
+
+export const UPDATE_PERMISSIONS_MUTATION = gql`
+  mutation UPDATE_PERMISSIONS_MUTATION(
+    $userId: ID!
+    $permissions: [Permission]
+  ) {
+    updatePermissions(
+      userId: $userId
+      permissions: $permissions
+    ) {
+      id
+    }
+  }
+`;

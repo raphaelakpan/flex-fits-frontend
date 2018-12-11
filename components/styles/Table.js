@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
-const Table = styled.table`
+const StyledTable = styled.table`
   border-spacing: 0;
   width: 100%;
   border: 1px solid ${props => props.theme.offWhite};
+  position: relative;
   thead {
     font-size: 10px;
+    background: #F9F9F9;
   }
   td,
   th {
@@ -20,12 +22,27 @@ const Table = styled.table`
         width: 100%;
       }
     }
+    label {
+      display: block;
+    }
   }
   tr {
     &:hover {
       background: ${props => props.theme.offWhite};
     }
   }
+  .error {
+    position: absolute;
+    top: -8rem;
+    right: 0;
+    transition: all 1s;
+    width: auto !important;
+  }
+  .spinner {
+    position: absolute;
+    border: 0;
+    left: -10rem;
+  }
 `;
 
-export default Table;
+export default StyledTable;

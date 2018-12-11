@@ -58,7 +58,7 @@ injectGlobal`
   .notice {
     color: ${Theme.blue};
     border: 1px solid ${Theme.blue};
-    padding: 10px 20px;
+    padding: 1rem 2rem;
     margin-bottom: 20px;
     background: rgba(217, 239, 247, 0.5);
     border-radius: 50px;
