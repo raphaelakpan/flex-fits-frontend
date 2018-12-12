@@ -15,7 +15,7 @@ const PERMISSIONS = [
 ];
 
 const Permissions = () => (
-  <Query query={ALL_USERS_QUERY}>
+  <Query fetchPolicy="network-only" query={ALL_USERS_QUERY}>
     {({ data: { users }, loading, error }) => {
       if (loading) return <Spinner />
       if (error) return <ErrorMessage error={error} />

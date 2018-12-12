@@ -1,12 +1,12 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
 import { StyledNav } from '../styles/Nav';
-import User from '../users/User';
+import CurrentUser from '../users/CurrentUser';
 import Signout from '../users/Signout';
 
 const Nav = () => (
-  <User>
-    {({ data: { currentUser } }) => (
+  <CurrentUser>
+    {({ currentUser }) => (
       <StyledNav>
       <Link href="/items">
         <a>Shop</a>
@@ -37,7 +37,7 @@ const Nav = () => (
       )}
     </StyledNav>
     )}
-  </User>
+  </CurrentUser>
 )
 
 

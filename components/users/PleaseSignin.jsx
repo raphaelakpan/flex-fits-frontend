@@ -1,12 +1,12 @@
-import User from '../users/User';
+import CurrentUser from '../users/CurrentUser';
 import Signin from '../users/Signin';
 import Spinner from '../common/Spinner';
 import ErrorMessage from '../common/ErrorMessage';
 
 const PleaseSignin = props => {
   return (
-    <User>
-      {({ data: { currentUser }, loading, error }) => {
+    <CurrentUser>
+      {({ currentUser, loading, error }) => {
         if (loading) return <Spinner />
         if (error) return <ErrorMessage error={error} />
         if (!currentUser) return (
@@ -17,7 +17,7 @@ const PleaseSignin = props => {
         )
         return props.children;
       }}
-    </User>
+    </CurrentUser>
   )
 }
 

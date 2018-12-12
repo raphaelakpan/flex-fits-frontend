@@ -1,10 +1,11 @@
 import UpdateItem from '../components/items/UpdateItem';
+import PleaseSignin from '../components/users/PleaseSignin';
 
 const Update = ({ query }) => {
   return (
-    <div>
+    <PleaseSignin>
       <UpdateItem id={query.id} />
-    </div>
+    </PleaseSignin>
   )
 }
 

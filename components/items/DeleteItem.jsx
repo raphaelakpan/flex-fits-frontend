@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ConfirmDialog from './ConfirmDialog';
 import { DELETE_ITEM_MUTATION, ALL_ITEMS_QUERY, PAGINATION_QUERY } from '../queries/items';
 import { perPage } from '../../config';
+import ErrorMessage from '../common/ErrorMessage';
 
 
 const StyledContainer = styled.div`
@@ -31,6 +32,12 @@ class DeleteItem extends Component {
     // cache.writeQuery({ query: ALL_ITEMS_QUERY, data });
   }
 
+  handleDelete = async (deleteItem) => {
+    try {
+      await deleteItem();
+    } catch { }
+  }
+
   render() {
     const { showDialog } = this.state;
     const { id, page } = this.props;
@@ -51,9 +58,10 @@ class DeleteItem extends Component {
               {showDialog && (
                 <ConfirmDialog
                 toggleDialog={this.toggleDialog}
-                handleAction={deleteItem}
+                handleAction={() => this.handleDelete(deleteItem)}
                 loading={loading}
                 >
+                  {!loading && error && <ErrorMessage error={error} />}
                   Are you sure you want to delete this?
                 </ConfirmDialog>
               )}

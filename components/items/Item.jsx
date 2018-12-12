@@ -6,6 +6,7 @@ import Title from '../styles/Title';
 import PriceTag from '../styles/PriceTag';
 import formatMoney from '../../lib/formatMoney';
 import DeleteItem from './DeleteItem';
+import CurrentUser from '../users/CurrentUser';
 
 class Item extends Component {
   static propTypes = {
@@ -16,36 +17,46 @@ class Item extends Component {
     const { item, page } = this.props;
 
     return (
-      <div>
-        <StyledItem>
-          {item.image && <img src={item.image} alt={item.Title} /> }
-          <Title>
-            <Link href={{
-              pathname: "/item",
-              query: { id: item.id }
-            }}>
-              <a>{item.title}</a>
-            </Link>
-          </Title>
-          <PriceTag>{formatMoney(item.price)}</PriceTag>
-          <p>{item.description}</p>
-          <div className="buttonList">
-            <Link href={{
-              pathname: "/update",
-              query: { id: item.id }
-            }}>
-              <a>Edit &nbsp; <i className="fas fa-edit"></i></a>
-            </Link>
-            <button>Add to Cart &nbsp; <i className="fas fa-plus"></i></button>
-            <DeleteItem
-              id={item.id}
-              page={page}
-            >
-              Delete &nbsp; <i className="fas fa-trash"></i>
-            </DeleteItem>
-          </div>
-        </StyledItem>
-      </div>
+      <CurrentUser>
+        {({ currentUser, isAdmin }) => {
+          const isOwner = currentUser && (item.user.id === currentUser.id);
+
+          return (
+            <StyledItem>
+              {item.image && <img src={item.image} alt={item.Title} /> }
+              <Title>
+                <Link href={{
+                  pathname: "/item",
+                  query: { id: item.id }
+                }}>
+                  <a>{item.title}</a>
+                </Link>
+              </Title>
+              <PriceTag>{formatMoney(item.price)}</PriceTag>
+              <p>{item.description}</p>
+              <div className="buttonList">
+                {(isOwner || isAdmin) && (
+                  <Link href={{
+                    pathname: "/update",
+                    query: { id: item.id }
+                  }}>
+                    <a>Edit &nbsp; <i className="fas fa-edit"></i></a>
+                  </Link>
+                )}
+                <button>Add to Cart &nbsp; <i className="fas fa-plus"></i></button>
+                {(isOwner || isAdmin) && (
+                  <DeleteItem
+                    id={item.id}
+                    page={page}
+                  >
+                    Delete &nbsp; <i className="fas fa-trash"></i>
+                  </DeleteItem>
+                )}
+              </div>
+            </StyledItem>
+          );
+        }}
+      </CurrentUser>
     )
   }
 }

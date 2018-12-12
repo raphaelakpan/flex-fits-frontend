@@ -6,6 +6,7 @@ import Form from '../styles/Form';
 import { UPDATE_ITEM_MUTATION, SINGLE_ITEM_QUERY} from '../queries/items';
 import ErrorMessage from '../common/ErrorMessage';
 import Spinner from '../common/Spinner';
+import CurrentUser from '../users/CurrentUser';
 
 class UpdateItem extends Component {
   state = {
@@ -82,78 +83,89 @@ class UpdateItem extends Component {
     const { image } = item;
 
     return (
-      <Query query={SINGLE_ITEM_QUERY} variables={{
-        id: this.props.id
-      }}>
-        {({ data: { item } }, loading) => {
-          if (loading) return <Spinner />
-          if (!item) return <h4>No Item found for ID: "{this.props.id}"</h4>
-          return (
-            <Mutation mutation={UPDATE_ITEM_MUTATION}>
-              {(updateItem, { loading, error }) => (
-                <Form onSubmit={e => this.handleUpdate(e, updateItem)}>
-                  <h2>Update Item</h2>
-                  {error && <ErrorMessage error={error} />}
-                  <fieldset disabled={loading} aria-busy={loading}>
-                    {(loading || uploading) && <Spinner />   }
+      <CurrentUser>
+        {({ currentUser, isAdmin }) => (
+          <Query query={SINGLE_ITEM_QUERY} variables={{
+            id: this.props.id
+          }}>
+            {({ data: { item } }, loading) => {
+              if (loading) return <Spinner />
+              if (!item) return <h4>No Item found for ID: "{this.props.id}"</h4>
+              const isOwner = item.user.id === currentUser.id;
 
-                    <label htmlFor="file">
-                      Image
-                      <input
-                        id="file"
-                        type="file"
-                        placeholder="Upload an Image"
-                        name="file"
-                        accept="image/*"
-                        onChange={this.handleFileUpload}
-                        />
-                      {(image || item.image) && <img className="preview" src={image || item.image} alt="Image Preview"/>}
-                    </label>
+              if (!isOwner && !isAdmin) return (
+                <ErrorMessage error={{
+                  message: 'You do not have sufficient permissions',
+                }} />
+              );
+              return (
+                <Mutation mutation={UPDATE_ITEM_MUTATION}>
+                  {(updateItem, { loading, error }) => (
+                    <Form onSubmit={e => this.handleUpdate(e, updateItem)}>
+                      <h2>Update Item</h2>
+                      {error && <ErrorMessage error={error} />}
+                      <fieldset disabled={loading} aria-busy={loading}>
+                        {(loading || uploading) && <Spinner />   }
 
-                    <label htmlFor="title">
-                      Title
-                      <input
-                        id="title"
-                        type="text"
-                        placeholder="Enter Title"
-                        name="title"
-                        defaultValue={item.title}
-                        onChange={this.handleChange}
-                        />
-                    </label>
+                        <label htmlFor="file">
+                          Image
+                          <input
+                            id="file"
+                            type="file"
+                            placeholder="Upload an Image"
+                            name="file"
+                            accept="image/*"
+                            onChange={this.handleFileUpload}
+                            />
+                          {(image || item.image) && <img className="preview" src={image || item.image} alt="Image Preview"/>}
+                        </label>
 
-                    <label htmlFor="price">
-                      Price
-                      <input
-                        id="price"
-                        type="number"
-                        placeholder="Enter Price"
-                        name="price"
-                        defaultValue={item.price}
-                        onChange={this.handleChange}
-                        />
-                    </label>
+                        <label htmlFor="title">
+                          Title
+                          <input
+                            id="title"
+                            type="text"
+                            placeholder="Enter Title"
+                            name="title"
+                            defaultValue={item.title}
+                            onChange={this.handleChange}
+                            />
+                        </label>
 
-                    <label htmlFor="description">
-                      Description
-                      <textarea
-                        id="description"
-                        placeholder="Enter Description"
-                        name="description"
-                        defaultValue={item.description}
-                        onChange={this.handleChange}
-                        rows="5"
-                        />
-                    </label>
+                        <label htmlFor="price">
+                          Price
+                          <input
+                            id="price"
+                            type="number"
+                            placeholder="Enter Price"
+                            name="price"
+                            defaultValue={item.price}
+                            onChange={this.handleChange}
+                            />
+                        </label>
 
-                    <button type="submit">Sav{loading ? 'ing' : 'e' } Changes</button>
-                  </fieldset>
-                </Form>
-              )}
-            </Mutation>
-          )
-        }}
-      </Query>
+                        <label htmlFor="description">
+                          Description
+                          <textarea
+                            id="description"
+                            placeholder="Enter Description"
+                            name="description"
+                            defaultValue={item.description}
+                            onChange={this.handleChange}
+                            rows="5"
+                            />
+                        </label>
+
+                        <button type="submit">Sav{loading ? 'ing' : 'e' } Changes</button>
+                      </fieldset>
+                    </Form>
+                  )}
+                </Mutation>
+              )
+            }}
+          </Query>
+        )}
+      </CurrentUser>
     )
   }
 }

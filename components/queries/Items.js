@@ -17,6 +17,9 @@ export const ALL_ITEMS_QUERY = gql`
       price
       image
       largeImage
+      user {
+        id
+      }
     }
   }
 `;
@@ -30,6 +33,9 @@ export const SINGLE_ITEM_QUERY = gql`
       price
       image
       largeImage
+      user {
+        id
+      }
     }
   }
 `;
