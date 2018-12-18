@@ -1,14 +1,12 @@
 import styled from 'styled-components';
 
-const CartStyles = styled.div`
+export const StyledCart = styled.div`
   padding: 20px;
-  position: relative;
-  background: white;
+  background: #f5f5f5;
   position: fixed;
   height: 100%;
   top: 0;
   right: 0;
-  width: 40%;
   min-width: 500px;
   bottom: 0;
   transform: translateX(100%);
@@ -42,6 +40,47 @@ const CartStyles = styled.div`
     list-style: none;
     overflow: scroll;
   }
+  .loading {
+    position: absolute;
+    margin-top: -1.7rem;
+  }
 `;
 
-export default CartStyles;
+export const StyledCartItem = styled.li`
+  border: 1px solid ${props => props.theme.lightGrey};
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: left;
+  align-items: start;
+  padding: 0.5rem;
+  background: white;
+  position: relative;
+  .CartItem__image {
+    position: relative;
+    span {
+      font-size: 1rem;
+    }
+  }
+  .CartItem__details {
+    margin-left: 1rem;
+    h3, p {
+      margin: 0;
+    }
+  }
+`;
+
+export const StyledRemoveCartButton = styled.button`
+  border: 1px solid;
+  padding: 5px 10px;
+  border-radius: 50px;
+  &:hover {
+    background: #000;
+    color: #fff;
+  }
+  .error {
+    position: absolute;
+    bottom: 5px;
+    color: red;
+    left: 11rem;
+  }
+`;

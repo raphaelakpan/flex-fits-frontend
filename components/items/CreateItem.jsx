@@ -127,6 +127,7 @@ class CreateItem extends Component {
                   onChange={this.handleChange}
                   required
                   />
+                <div className="price">{formatMoney(price || 0)}</div>
               </label>
 
               <label htmlFor="description">

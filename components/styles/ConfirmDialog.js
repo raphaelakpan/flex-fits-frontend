@@ -1,4 +1,13 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const scaleUp = keyframes`
+  from {
+    transform: scale(0) skew(0deg);
+  }
+  to {
+    transform: scale(1) skew(-3deg);
+  }
+`;
 
 export const StyledDialogContainer = styled.div`
   position: fixed;
@@ -12,6 +21,7 @@ export const StyledDialogContainer = styled.div`
   justify-content: center;
   align-items: center;
   .dialog {
+    animation: ${scaleUp} 0.3s;
     background: white;
     padding: 3rem;
     font-size: 2rem;

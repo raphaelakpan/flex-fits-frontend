@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { SINGLE_ITEM_QUERY } from '../queries/items';
 import{ StyledItem } from '../styles/SingleItem';
 import PriceTag from '../styles/PriceTag';
+import formatMoney from '../../lib/formatMoney';
 
 class SingleItem extends Component {
   render() {
@@ -18,7 +19,9 @@ class SingleItem extends Component {
 
               <div className="image">
                 <img src={item.largeImage} alt={item.title} />
-                <PriceTag>$50</PriceTag>
+                <PriceTag>
+                  {formatMoney(item.price)}
+                </PriceTag>
               </div>
               <div className="details">
                 <h2 className="center">Viewing <span className="title">{item.title}</span></h2>

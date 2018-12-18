@@ -65,6 +65,7 @@ class UpdateItem extends Component {
         variables: {
           id: this.props.id,
           ...this.state.item,
+          price: this.state.item.price || 0,
         }
       });
       Router.push({
@@ -79,8 +80,8 @@ class UpdateItem extends Component {
   }
 
   render() {
-    const { uploading, item } = this.state;
-    const { image } = item;
+    const { uploading } = this.state;
+    const { image } = this.state.item;
 
     return (
       <CurrentUser>
@@ -141,7 +142,13 @@ class UpdateItem extends Component {
                             name="price"
                             defaultValue={item.price}
                             onChange={this.handleChange}
+
                             />
+                          <div className="price">{
+                            this.state.item.price === undefined ?
+                              formatMoney(item.price) : formatMoney(this.state.item.price || 0)
+                            }
+                          </div>
                         </label>
 
                         <label htmlFor="description">

@@ -14,6 +14,10 @@ const Form = styled.form`
   label {
     display: block;
     margin-bottom: 1rem;
+    .price {
+      color: ${props => props.theme.primary};
+      font-size: 20px;
+    }
   }
   input,
   textarea,

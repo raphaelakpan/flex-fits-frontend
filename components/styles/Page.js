@@ -42,6 +42,10 @@ injectGlobal`
     border: 0;
   }
 
+  *[disabled] {
+    cursor: not-allowed;
+  }
+
   .bordered {
     border: 1px solid ${Theme.primary} !important;
     color: ${Theme.primary} !important;

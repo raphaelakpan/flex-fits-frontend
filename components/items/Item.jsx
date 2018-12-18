@@ -7,6 +7,7 @@ import PriceTag from '../styles/PriceTag';
 import formatMoney from '../../lib/formatMoney';
 import DeleteItem from './DeleteItem';
 import CurrentUser from '../users/CurrentUser';
+import AddToCart from '../cart/AddToCart';
 
 class Item extends Component {
   static propTypes = {
@@ -43,7 +44,7 @@ class Item extends Component {
                     <a>Edit &nbsp; <i className="fas fa-edit"></i></a>
                   </Link>
                 )}
-                <button>Add to Cart &nbsp; <i className="fas fa-plus"></i></button>
+                <AddToCart itemId={item.id} />
                 {(isOwner || isAdmin) && (
                   <DeleteItem
                     id={item.id}
