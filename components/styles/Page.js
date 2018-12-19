@@ -2,8 +2,10 @@ import styled, { injectGlobal } from 'styled-components';
 import Theme from './Theme';
 
 export const StyledPage = styled.div`
-  background: white;
+  background: #f9f9f9;
   color: ${props => props.theme.black};
+  margin-top: 15rem;
+  min-height: 90vh;
 `;
 
 export const StyledPageContainer = styled.div`

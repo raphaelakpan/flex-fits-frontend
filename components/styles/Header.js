@@ -19,6 +19,13 @@ export const Logo = styled.h1`
 `;
 
 export const StyledHeader = styled.header`
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background: #fff;
+  top: 0;
+  box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
   .bar {
     border-bottom: 10px solid ${props => props.theme.black};
     display: grid;
