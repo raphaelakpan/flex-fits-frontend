@@ -84,3 +84,32 @@ export const StyledRemoveCartButton = styled.button`
     left: 11rem;
   }
 `;
+
+export const StyledCartCount = styled.div`
+  background: ${props => props.theme.primary};
+  color: #fff;
+  border-radius: 50%;
+  padding: 0.5rem;
+  min-width: 3rem;
+  font-weight: bold;
+  font-feature-settings: 'tnum';
+  font-variant-numeric: tabular-nums;
+  position: absolute;
+  top: 2rem;
+  right: 0.5rem;
+  font-size: 14px;
+`;
+
+export const StyledCartCountAnimation = styled.span`
+  .count {
+    display: block;
+    transition: all 0.5s;
+    backface-visibility: hidden;
+  }
+  .count-enter {
+    transform:  scale(0);
+  }
+  .count-exit {
+    transform:  scale(0);
+  }
+`;

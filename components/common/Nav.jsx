@@ -5,6 +5,7 @@ import { StyledNav } from '../styles/Nav';
 import CurrentUser from '../users/CurrentUser';
 import Signout from '../users/Signout';
 import { TOGGLE_CART_MUTATION } from '../queries/client';
+import CartCount from '../cart/CartCount';
 
 const Nav = () => (
   <CurrentUser>
@@ -26,7 +27,12 @@ const Nav = () => (
           </Link>
           <Mutation mutation={TOGGLE_CART_MUTATION}>
             {(toggleCart) => (
-              <button onClick={toggleCart}>My Cart</button>
+              <button onClick={toggleCart}>
+                My Cart
+                <CartCount
+                  count={currentUser.cart.reduce((sum, cartItem) => sum + (cartItem.item ? cartItem.quantity : 0), 0)}
+                />
+              </button>
             )}
           </Mutation>
           <Signout />
