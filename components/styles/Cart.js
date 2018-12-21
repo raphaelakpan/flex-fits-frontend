@@ -98,6 +98,12 @@ export const StyledCartCount = styled.div`
   top: 2rem;
   right: 0.5rem;
   font-size: 14px;
+  @media(max-width: 1300px) {
+    top: 0.3rem;
+    font-size: 1rem;
+    min-width: 1rem;
+    right: 0.7rem;
+  }
 `;
 
 export const StyledCartCountAnimation = styled.span`

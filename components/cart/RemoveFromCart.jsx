@@ -30,7 +30,7 @@ const RemoveFromCart = ({ id }) => {
             onClick={() => handleClick(removeFromCart)}
             disabled={loading}
           >
-            Remov{ loading? 'ing...': 'e' }
+            Remov{ loading ? 'ing...': 'e' }
           </StyledRemoveCartButton>
         );
       }}

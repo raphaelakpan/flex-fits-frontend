@@ -6,6 +6,7 @@ export const StyledPage = styled.div`
   color: ${props => props.theme.black};
   margin-top: 15rem;
   min-height: 90vh;
+  padding-top: 3rem;
 `;
 
 export const StyledPageContainer = styled.div`

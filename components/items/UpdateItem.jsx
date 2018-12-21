@@ -79,100 +79,107 @@ class UpdateItem extends Component {
     this.setState(({ uploading }) => ({ uploading: !uploading }));
   }
 
+  static Composed = ({ id, children }) => (
+    <CurrentUser>
+      {({ currentUser, isAdmin }) => (
+        <Query query={SINGLE_ITEM_QUERY} variables={{ id }}>
+          {({ data: { item } }, loading) => {
+            if (loading) return <Spinner />
+            if (!item) return <h4>No Item found for ID: "{id}"</h4>
+            const isOwner = item.user.id === currentUser.id;
+
+            if (!isOwner && !isAdmin) return (
+              <ErrorMessage error={{
+                message: 'You do not have sufficient permissions',
+              }} />
+            );
+            return (
+              <Mutation mutation={UPDATE_ITEM_MUTATION}>
+                {(updateItem, { loading, error }) => children({
+                    item, loading, updateItem, error
+                  })
+                }
+              </Mutation>
+            )
+          }}
+        </Query>
+      )}
+    </CurrentUser>
+  );
+
   render() {
     const { uploading } = this.state;
     const { image } = this.state.item;
 
     return (
-      <CurrentUser>
-        {({ currentUser, isAdmin }) => (
-          <Query query={SINGLE_ITEM_QUERY} variables={{
-            id: this.props.id
-          }}>
-            {({ data: { item } }, loading) => {
-              if (loading) return <Spinner />
-              if (!item) return <h4>No Item found for ID: "{this.props.id}"</h4>
-              const isOwner = item.user.id === currentUser.id;
+      <UpdateItem.Composed id={this.props.id}>
+        {({ loading, item, updateItem, error }) => (
+          <Form onSubmit={e => this.handleUpdate(e, updateItem)}>
+            <h2>Update Item</h2>
+            {error && <ErrorMessage error={error} />}
+            <fieldset disabled={loading} aria-busy={loading}>
+              {(loading || uploading) && <Spinner />   }
 
-              if (!isOwner && !isAdmin) return (
-                <ErrorMessage error={{
-                  message: 'You do not have sufficient permissions',
-                }} />
-              );
-              return (
-                <Mutation mutation={UPDATE_ITEM_MUTATION}>
-                  {(updateItem, { loading, error }) => (
-                    <Form onSubmit={e => this.handleUpdate(e, updateItem)}>
-                      <h2>Update Item</h2>
-                      {error && <ErrorMessage error={error} />}
-                      <fieldset disabled={loading} aria-busy={loading}>
-                        {(loading || uploading) && <Spinner />   }
+              <label htmlFor="file">
+                Image
+                <input
+                  id="file"
+                  type="file"
+                  placeholder="Upload an Image"
+                  name="file"
+                  accept="image/*"
+                  onChange={this.handleFileUpload}
+                  />
+                {(image || item.image) && <img className="preview" src={image || item.image} alt="Image Preview"/>}
+              </label>
 
-                        <label htmlFor="file">
-                          Image
-                          <input
-                            id="file"
-                            type="file"
-                            placeholder="Upload an Image"
-                            name="file"
-                            accept="image/*"
-                            onChange={this.handleFileUpload}
-                            />
-                          {(image || item.image) && <img className="preview" src={image || item.image} alt="Image Preview"/>}
-                        </label>
+              <label htmlFor="title">
+                Title
+                <input
+                  id="title"
+                  type="text"
+                  placeholder="Enter Title"
+                  name="title"
+                  defaultValue={item.title}
+                  onChange={this.handleChange}
+                  />
+              </label>
 
-                        <label htmlFor="title">
-                          Title
-                          <input
-                            id="title"
-                            type="text"
-                            placeholder="Enter Title"
-                            name="title"
-                            defaultValue={item.title}
-                            onChange={this.handleChange}
-                            />
-                        </label>
+              <label htmlFor="price">
+                Price
+                <input
+                  id="price"
+                  type="number"
+                  placeholder="Enter Price"
+                  name="price"
+                  defaultValue={item.price}
+                  onChange={this.handleChange}
 
-                        <label htmlFor="price">
-                          Price
-                          <input
-                            id="price"
-                            type="number"
-                            placeholder="Enter Price"
-                            name="price"
-                            defaultValue={item.price}
-                            onChange={this.handleChange}
+                  />
+                <div className="price">{
+                  this.state.item.price === undefined ?
+                    formatMoney(item.price) : formatMoney(this.state.item.price || 0)
+                  }
+                </div>
+              </label>
 
-                            />
-                          <div className="price">{
-                            this.state.item.price === undefined ?
-                              formatMoney(item.price) : formatMoney(this.state.item.price || 0)
-                            }
-                          </div>
-                        </label>
+              <label htmlFor="description">
+                Description
+                <textarea
+                  id="description"
+                  placeholder="Enter Description"
+                  name="description"
+                  defaultValue={item.description}
+                  onChange={this.handleChange}
+                  rows="5"
+                  />
+              </label>
 
-                        <label htmlFor="description">
-                          Description
-                          <textarea
-                            id="description"
-                            placeholder="Enter Description"
-                            name="description"
-                            defaultValue={item.description}
-                            onChange={this.handleChange}
-                            rows="5"
-                            />
-                        </label>
-
-                        <button type="submit">Sav{loading ? 'ing' : 'e' } Changes</button>
-                      </fieldset>
-                    </Form>
-                  )}
-                </Mutation>
-              )
-            }}
-          </Query>
+              <button type="submit">Sav{loading ? 'ing' : 'e' } Changes</button>
+            </fieldset>
+          </Form>
         )}
-      </CurrentUser>
+      </UpdateItem.Composed>
     )
   }
 }

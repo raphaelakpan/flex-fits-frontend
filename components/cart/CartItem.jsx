@@ -28,8 +28,6 @@ const CartItem = ({ cartItem }) => {
           <RemoveFromCart id={cartItem.id} />
         </div>
       )}
-
-
     </StyledCartItem>
   )
 }

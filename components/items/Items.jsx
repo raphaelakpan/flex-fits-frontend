@@ -35,7 +35,7 @@ class Items extends Component {
           }}
         >
           {({ data: { items }, loading, error }) => {
-            if (loading) return <Spinner />;
+            if (loading) return <div style={{ margin: '20rem 0' }}><Spinner /></div>;
             if (error) return <p>ERROR: {error.message}</p>;
             if (items.length === 0 && page > 1) return this.redirectToPreviousPage();
             if (items.length === 0) return (
