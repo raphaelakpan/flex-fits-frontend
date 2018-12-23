@@ -5,19 +5,40 @@ const DropDown = styled.div`
   width: 100%;
   z-index: 2;
   border: 1px solid ${props => props.theme.lightGrey};
+  @media (max-width: 500px) {
+    font-size: 1rem;
+    top: 2.8rem;
+  }
 `;
 
 const DropDownItem = styled.div`
   border-bottom: 1px solid ${props => props.theme.lightGrey};
-  background: ${props => (props.highlighted ? '#f7f7f7' : 'white')};
+  background: white;
   padding: 1rem;
   transition: all 0.2s;
   ${props => (props.highlighted ? 'padding-left: 2rem;' : null)};
   display: flex;
   align-items: center;
-  border-left: 10px solid ${props => (props.highlighted ? props.theme.lightGrey : 'white')};
+  border-left: 10px solid ${props => (props.highlighted ? props.theme.primary : 'white')};
+  ${props => props.className !== 'no__pointer' ? 'cursor: pointer;' : null }
   img {
     margin-right: 10px;
+  }
+  .loading {
+    margin: 0 auto;
+  }
+  .results {
+    border: 1px solid ${props => props.theme.borderColor};
+    padding: 0.5rem 2rem;
+    background: #f9f9f9;
+    margin: auto;
+    border-radius: 5rem;
+  }
+  @media (max-width: 500px) {
+    padding: 0.5rem;
+    .results {
+      padding: 0.2rem 1rem;
+    }
   }
 `;
 
@@ -33,13 +54,37 @@ const glow = keyframes`
 
 const SearchStyles = styled.div`
   position: relative;
+  width: 700px;
+  margin: 0.5rem auto;
   input {
     width: 100%;
     padding: 10px;
     border: 0;
     font-size: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid ${props => props.theme.lightGrey};
+    outline: none;
+    padding: 1rem 1.5rem;
+    background: #f9f9f9;
     &.loading {
       animation: ${glow} 0.5s ease-in-out infinite alternate;
+    }
+  }
+  .search__icon {
+    position: absolute;
+    font-size: 2.5rem;
+    color: #afafaf;
+    right: 1rem;
+    top: 1rem;
+  }
+  @media (max-width: 500px) {
+    width: 90%;
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    .search__icon {
+      font-size: 1.1rem;
     }
   }
 `;

@@ -8,6 +8,7 @@ export const StyledItem = styled.div`
   min-height: 800px;
   border: 1px solid ${props => props.theme.borderColor};
   border-radius: 0.5rem;
+  background: #fff;
   .image {
     position: relative;
   }
