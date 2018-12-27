@@ -27,6 +27,10 @@ const StyledItem = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-gap: 1px;
     background: ${props => props.theme.lightGrey};
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+    }
     & > * {
       background: white;
       border: 0;

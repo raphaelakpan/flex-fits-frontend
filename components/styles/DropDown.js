@@ -85,6 +85,8 @@ const SearchStyles = styled.div`
     }
     .search__icon {
       font-size: 1.1rem;
+      top: 0.5rem;
+      right: 0.5rem;
     }
   }
 `;

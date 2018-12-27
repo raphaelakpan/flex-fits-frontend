@@ -9,6 +9,7 @@ import CurrentUser from '../users/CurrentUser';
 import CartItem from './CartItem';
 import calcTotalPrice from '../../lib/calcTotalPrice';
 import formatMoney from '../../lib/formatMoney';
+import Checkout from '../common/Checkout';
 
 const Composed = adopt({
   user: ({ render }) => <CurrentUser>{render}</CurrentUser>,
@@ -46,7 +47,11 @@ const Cart = () => (
                 calcTotalPrice(currentUser.cart)
               )}
             </p>
-            <Button>Checkout</Button>
+            {currentUser.cart.length > 0 && (
+              <Checkout>
+                <Button style={{ width: "100%" }}>Checkout</Button>
+              </Checkout>
+            )}
           </footer>
         </StyledCart>
       );

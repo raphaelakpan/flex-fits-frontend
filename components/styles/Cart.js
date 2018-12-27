@@ -16,6 +16,9 @@ export const StyledCart = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
   ${props => props.open && `transform: translateX(0);`};
+  @media (max-width: 500px) {
+    min-width: 0;
+  }
   header {
     border-bottom: 5px solid ${props => props.theme.black};
     margin-bottom: 2rem;
@@ -99,10 +102,11 @@ export const StyledCartCount = styled.div`
   right: 0.5rem;
   font-size: 14px;
   @media(max-width: 1300px) {
-    top: 0.3rem;
-    font-size: 1rem;
-    min-width: 1rem;
-    right: 0.7rem;
+    top: 0;
+    font-size: 0.7rem;
+    min-width: 0;
+    right: 0.3rem;
+    padding: 0.14rem;
   }
 `;
 

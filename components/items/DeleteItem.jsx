@@ -10,7 +10,10 @@ import ErrorMessage from '../common/ErrorMessage';
 
 const StyledContainer = styled.div`
   display: grid;
-  padding: 0 !important;
+  /* padding: 0 !important; */
+  button {
+    background: #fff;
+  }
 `;
 
 class DeleteItem extends Component {

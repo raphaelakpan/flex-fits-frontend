@@ -7,6 +7,10 @@ export const StyledPage = styled.div`
   margin-top: 15rem;
   min-height: 90vh;
   padding-top: 3rem;
+  @media (max-width: 500px) {
+    font-size: 80%;
+    margin-top: 10rem;
+  }
 `;
 
 export const StyledPageContainer = styled.div`
@@ -69,5 +73,13 @@ injectGlobal`
     margin-bottom: 20px;
     background: rgba(217, 239, 247, 0.5);
     border-radius: 50px;
+  }
+
+  .grey {
+    color: #777;
+  }
+
+  .centered {
+    text-align: center;
   }
 `;
