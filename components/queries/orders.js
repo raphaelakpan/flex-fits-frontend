@@ -37,3 +37,31 @@ export const SINGLE_ORDER_QUERY = gql`
     }
   }
 `;
+
+export const ALL_ORDERS_QUERY = gql`
+  query ALL_ORDERS_QUERY(
+    $skip: Int = 0
+    $first: Int = 5
+  ) {
+    orders(
+      skip: $skip
+      first: $first
+      orderBy: createdAt_DESC
+    ) {
+      id
+      total
+      charge
+      createdAt
+      user {
+        id
+        email
+      }
+      items {
+        id
+        image
+        title
+        quantity
+      }
+    }
+  }
+`;

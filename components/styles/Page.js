@@ -2,7 +2,7 @@ import styled, { injectGlobal } from 'styled-components';
 import Theme from './Theme';
 
 export const StyledPage = styled.div`
-  background: #f9f9f9;
+  background: ${props => props.theme.offWhite};
   color: ${props => props.theme.black};
   margin-top: 15rem;
   min-height: 90vh;
@@ -81,5 +81,9 @@ injectGlobal`
 
   .centered {
     text-align: center;
+  }
+
+  .clickable {
+    cursor: pointer;
   }
 `;

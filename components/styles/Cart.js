@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const StyledCart = styled.div`
   padding: 20px;
-  background: #f9f9f9;
+  background: ${props => props.theme.offWhite};
   position: fixed;
   height: 100%;
   top: 0;

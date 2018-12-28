@@ -30,7 +30,7 @@ const DropDownItem = styled.div`
   .results {
     border: 1px solid ${props => props.theme.borderColor};
     padding: 0.5rem 2rem;
-    background: #f9f9f9;
+    background: ${props => props.theme.offWhite};
     margin: auto;
     border-radius: 5rem;
   }
@@ -65,7 +65,7 @@ const SearchStyles = styled.div`
     border: 1px solid ${props => props.theme.lightGrey};
     outline: none;
     padding: 1rem 1.5rem;
-    background: #f9f9f9;
+    background: ${props => props.theme.offWhite};
     &.loading {
       animation: ${glow} 0.5s ease-in-out infinite alternate;
     }

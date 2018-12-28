@@ -1,6 +1,62 @@
 import styled from 'styled-components';
 
-const StyledOrder = styled.div`
+export const StyledOrders = styled.div`
+  .Orders {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 1rem;
+  }
+
+  .Order {
+    background: #fff;
+    box-shadow: ${props => props.theme.boxShadow};
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 1px solid ${props => props.theme.borderColor};
+    display: grid;
+    border-top: 0.5rem solid ${props => props.theme.primary};
+    img {
+      width: 50%;
+      margin: 0 auto;
+    }
+    .Order_metadata {
+      display: grid;
+      & > * {
+        padding-left: 2rem;
+        position: relative;
+        &::before {
+          content: '';
+          position: absolute;
+          width: 1rem;
+          height: 1rem;
+          background: ${props => props.theme.primary};
+          left: 0;
+          transform: rotate(45deg);
+          top: 1rem;
+        }
+        &::after {
+          content: '';
+          position: absolute;
+          width: 1rem;
+          height: 1rem;
+          background: #fff;
+          left: 0;
+          top: 1rem;
+          border-radius: 50px;
+        }
+        @media (max-width: 500px) {
+          &::before, &::after {
+            width: 0.5rem;
+            height: 0.5rem;
+            top: 0.7rem;
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const StyledOrder = styled.div`
   max-width: 700px;
   background: #fff;
   margin: 0 auto;
@@ -92,4 +148,3 @@ const StyledOrder = styled.div`
     }
   }
 `;
-export default StyledOrder;

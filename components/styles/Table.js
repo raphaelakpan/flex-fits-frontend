@@ -5,15 +5,15 @@ const StyledTable = styled.table`
   width: 100%;
   border: 1px solid ${props => props.theme.offWhite};
   position: relative;
+  background: #fff;
   thead {
     font-size: 10px;
-    background: #F9F9F9;
   }
   td,
   th {
     border-bottom: 1px solid ${props => props.theme.offWhite};
     border-right: 1px solid ${props => props.theme.offWhite};
-    padding: 10px 5px;
+    padding: 10px;
     position: relative;
     &:last-child {
       border-right: none;

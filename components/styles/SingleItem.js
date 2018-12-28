@@ -24,7 +24,7 @@ export const StyledItem = styled.div`
     padding: 2rem;
     font-size: 2rem;
     border: 1px solid ${props => props.theme.borderColor};
-    background: #f9f9f9;
+    background: ${props => props.theme.offWhite};
     .title {
       color: ${props => props.theme.primary}
     }

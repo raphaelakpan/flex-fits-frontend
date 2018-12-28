@@ -25,8 +25,8 @@ const Permissions = () => (
           <StyledTable>
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Email</th>
+                <th>NAME</th>
+                <th>EMAIL</th>
                 {PERMISSIONS.map((permission, index) =>
                   <th key={index}>{permission}</th>
                 )}

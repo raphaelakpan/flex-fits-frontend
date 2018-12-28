@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import { SINGLE_ORDER_QUERY } from '../queries/orders';
 import Spinner from '../common/Spinner';
 import ErrorMessage from '../common/ErrorMessage';
-import StyledOrder from '../styles/Order';
+import { StyledOrder } from '../styles/Orders';
 import formatMoney from '../../lib/formatMoney';
 
  class Order extends Component {
