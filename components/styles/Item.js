@@ -7,18 +7,28 @@ const StyledItem = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  @media (max-width: 500px) {
+    font-size: 80%;
+  }
   img {
     width: 100%;
     height: 400px;
     object-fit: contain;
+    @media (max-width: 500px) {
+      height: inherit;
+    }
   }
   p {
-    font-size: 12px;
     line-height: 2;
     font-weight: 300;
     flex-grow: 1;
     padding: 0 3rem;
     font-size: 1.5rem;
+    color: #777;
+    @media (max-width: 500px) {
+      line-height: 1.5;
+      font-size: 1rem;
+    }
   }
   .buttonList {
     display: grid;
@@ -28,8 +38,7 @@ const StyledItem = styled.div`
     grid-gap: 1px;
     background: ${props => props.theme.lightGrey};
     @media (max-width: 500px) {
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
     }
     & > * {
       background: white;

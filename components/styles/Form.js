@@ -40,7 +40,7 @@ const Form = styled.form`
     display: block;
     margin: 1rem auto;
     border: 1px solid ${props => props.theme.lightGrey};
-    width: 250px;
+    width: 70%;
   }
   button,
   input[type='submit'] {
@@ -78,6 +78,16 @@ const Form = styled.form`
       &:hover {
         text-decoration: underline;
       }
+    }
+  }
+  @media (max-width: 500px) {
+    font-size: 80%;
+    button,
+    input[type='submit'],
+    input,
+    textarea,
+    select {
+      font-size: 1rem;
     }
   }
 `;

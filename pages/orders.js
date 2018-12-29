@@ -4,7 +4,7 @@ import PleaseSignin from '../components/users/PleaseSignin';
 const OrdersPage = props => {
   return (
     <PleaseSignin>
-      <Orders />
+      <Orders page={parseInt(props.query.page) || 1} />
     </PleaseSignin>
   )
 }

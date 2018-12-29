@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import styled from 'styled-components';
 import ConfirmDialog from './ConfirmDialog';
-import { DELETE_ITEM_MUTATION, ALL_ITEMS_QUERY, PAGINATION_QUERY } from '../queries/items';
+import { DELETE_ITEM_MUTATION, ALL_ITEMS_QUERY, ITEMS_PAGINATION_QUERY } from '../queries/items';
 import { CURRENT_USER_QUERY } from '../queries/users';
 import { perPage } from '../../config';
 import ErrorMessage from '../common/ErrorMessage';
@@ -53,7 +53,7 @@ class DeleteItem extends Component {
         update={this.handleUpdate}
         refetchQueries={[
           { query: ALL_ITEMS_QUERY, variables: { skip: (page || 1) * perPage - perPage } },
-          { query: PAGINATION_QUERY },
+          { query: ITEMS_PAGINATION_QUERY },
           { query: CURRENT_USER_QUERY }
         ]}
       >

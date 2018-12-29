@@ -3,8 +3,13 @@ import styled from 'styled-components';
 export const StyledOrders = styled.div`
   .Orders {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     grid-gap: 1rem;
+    margin-bottom: 3rem;
+    @media (max-width: 500px) {
+      grid-template-columns: repeat(2, 1fr);
+      font-size: 80%;
+    }
   }
 
   .Order {
@@ -14,7 +19,10 @@ export const StyledOrders = styled.div`
     border-radius: 1rem;
     border: 1px solid ${props => props.theme.borderColor};
     display: grid;
-    border-top: 0.5rem solid ${props => props.theme.primary};
+    border-top: 0.1rem solid ${props => props.theme.primary};
+    @media (max-width: 500px) {
+      font-size: 80%;
+    }
     img {
       width: 50%;
       margin: 0 auto;
@@ -45,6 +53,7 @@ export const StyledOrders = styled.div`
           border-radius: 50px;
         }
         @media (max-width: 500px) {
+          padding-left: 1rem;
           &::before, &::after {
             width: 0.5rem;
             height: 0.5rem;

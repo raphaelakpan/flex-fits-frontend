@@ -34,7 +34,9 @@ class Item extends Component {
                 </Link>
               </Title>
               <PriceTag>{formatMoney(item.price)}</PriceTag>
-              <p>{item.description}</p>
+              <p>
+                {item.description.length <= 50 ? item.description : item.description.substr(0, 50) + '...'}
+              </p>
               <div className="buttonList">
                 {(isOwner || isAdmin) && (
                   <Link href={{

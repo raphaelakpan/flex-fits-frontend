@@ -41,7 +41,7 @@ export const SINGLE_ORDER_QUERY = gql`
 export const ALL_ORDERS_QUERY = gql`
   query ALL_ORDERS_QUERY(
     $skip: Int = 0
-    $first: Int = 5
+    $first: Int = 8
   ) {
     orders(
       skip: $skip
@@ -61,6 +61,16 @@ export const ALL_ORDERS_QUERY = gql`
         image
         title
         quantity
+      }
+    }
+  }
+`;
+
+export const ORDERS_PAGINATION_QUERY = gql`
+  query ORDERS_PAGINATION_QUERY {
+    ordersConnection {
+      aggregate {
+        count
       }
     }
   }

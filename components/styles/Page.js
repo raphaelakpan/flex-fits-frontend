@@ -75,15 +75,18 @@ injectGlobal`
     border-radius: 50px;
   }
 
+  @media (max-width: 500px) {
+    .notice, .success {
+      font-size: 80%;
+      padding: 0.5rem 1rem;
+    }
+  }
+
   .grey {
     color: #777;
   }
 
   .centered {
     text-align: center;
-  }
-
-  .clickable {
-    cursor: pointer;
   }
 `;

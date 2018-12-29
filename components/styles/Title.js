@@ -14,6 +14,9 @@ const Title = styled.h3`
     text-align: center;
     color: white;
     padding: 0 1rem;
+    @media (max-width: 500px) {
+      font-size: 2rem;
+    }
   }
 `;
 
