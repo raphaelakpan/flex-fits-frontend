@@ -33,21 +33,21 @@ export const SINGLE_ORDER_QUERY = gql`
         price
         quantity
         image
+        soldBy {
+          id
+          name
+        }
+        originalItem {
+          id
+        }
       }
     }
   }
 `;
 
 export const ALL_ORDERS_QUERY = gql`
-  query ALL_ORDERS_QUERY(
-    $skip: Int = 0
-    $first: Int = 8
-  ) {
-    orders(
-      skip: $skip
-      first: $first
-      orderBy: createdAt_DESC
-    ) {
+  query ALL_ORDERS_QUERY($skip: Int = 0, $first: Int = 8) {
+    orders(skip: $skip, first: $first, orderBy: createdAt_DESC) {
       id
       total
       charge

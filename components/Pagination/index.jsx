@@ -5,7 +5,7 @@ import StyledPagination from '../styles/Pagination';
 
 const Pagination = ({ page, perPage, count, pathname, name}) => {
   const pages = Math.ceil(count / perPage);
-  if (count < 1 || page > pages) return null;
+  if (count < 1 || page >= pages) return null;
   return (
     <StyledPagination>
       <Head>

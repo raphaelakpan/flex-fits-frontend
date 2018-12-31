@@ -26,6 +26,14 @@ export const StyledOrders = styled.div`
     img {
       width: 50%;
       margin: 0 auto;
+      height: 100px;
+      object-fit: cover;
+    }
+    .user {
+      text-align: right;
+      em {
+        text-decoration: underline;
+      }
     }
     .Order_metadata {
       display: grid;
@@ -54,7 +62,8 @@ export const StyledOrders = styled.div`
         }
         @media (max-width: 500px) {
           padding-left: 1rem;
-          &::before, &::after {
+          &::before,
+          &::after {
             width: 0.5rem;
             height: 0.5rem;
             top: 0.7rem;
@@ -90,7 +99,7 @@ export const StyledOrder = styled.div`
     }
   }
   .order_item {
-    border: 1px solid ${props => props.theme.offWhite};
+    border: 1px solid ${props => props.theme.borderColor};
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
@@ -111,6 +120,7 @@ export const StyledOrder = styled.div`
     span {
       margin-left: 1rem;
     }
+    padding-right: 1rem;
     .details__table {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -147,7 +157,8 @@ export const StyledOrder = styled.div`
           border-radius: 50px;
         }
         @media (max-width: 500px) {
-          &::before, &::after {
+          &::before,
+          &::after {
             width: 0.5rem;
             height: 0.5rem;
             top: 0.7rem;
