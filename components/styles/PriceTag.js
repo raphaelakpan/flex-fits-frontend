@@ -11,7 +11,10 @@ const PriceTag = styled.span`
   display: inline-block;
   position: absolute;
   top: -3px;
-  right: -3px;
+  left: -3px;
+  @media (max-width: 500px) {
+    font-size: 2rem;
+  }
 `;
 
 export default PriceTag;

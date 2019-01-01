@@ -9,7 +9,7 @@ export const StyledCart = styled.div`
   right: 0;
   min-width: 500px;
   bottom: 0;
-  transform: translateX(101%);
+  transform: translateX(105%);
   transition: all 0.3s;
   box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
   z-index: 5;
@@ -18,6 +18,7 @@ export const StyledCart = styled.div`
   ${props => props.open && `transform: translateX(0);`};
   @media (max-width: 500px) {
     min-width: 0;
+    width: 250px;
   }
   header {
     border-bottom: 5px solid ${props => props.theme.black};
@@ -47,17 +48,25 @@ export const StyledCart = styled.div`
     position: absolute;
     margin-top: -1.7rem;
   }
+  button {
+    background: #fff;
+    @media (max-width: 500px) {
+      padding: 2px 5px;
+      font-size: 10px;
+    }
+  }
 `;
 
 export const StyledCartItem = styled.li`
   border: 1px solid ${props => props.theme.lightGrey};
   margin-bottom: 1rem;
-  display: flex;
-  justify-content: left;
-  align-items: start;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   padding: 0.5rem;
   background: white;
-  position: relative;
+  @media (max-width: 500px) {
+    font-size: 80%;
+  }
   .CartItem__image {
     position: relative;
     span {
@@ -66,7 +75,8 @@ export const StyledCartItem = styled.li`
   }
   .CartItem__details {
     margin-left: 1rem;
-    h3, p {
+    h3,
+    p {
       margin: 0;
     }
   }
@@ -101,7 +111,7 @@ export const StyledCartCount = styled.div`
   top: 2rem;
   right: 0.5rem;
   font-size: 14px;
-  @media(max-width: 1300px) {
+  @media (max-width: 1300px) {
     top: 0;
     font-size: 0.7rem;
     min-width: 0;
@@ -117,9 +127,9 @@ export const StyledCartCountAnimation = styled.span`
     backface-visibility: hidden;
   }
   .count-enter {
-    transform:  scale(0);
+    transform: scale(0);
   }
   .count-exit {
-    transform:  scale(0);
+    transform: scale(0);
   }
 `;

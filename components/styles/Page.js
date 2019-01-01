@@ -5,15 +5,20 @@ export const StyledPage = styled.div`
   background: ${props => props.theme.offWhite};
   color: ${props => props.theme.black};
   margin-top: 15rem;
-  min-height: 90vh;
   padding-top: 3rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: scroll;
   @media (max-width: 500px) {
     font-size: 80%;
     margin-top: 10rem;
   }
 `;
 
-export const StyledPageContainer = styled.div`
+export const StyledContainer = styled.div`
   max-width: ${props => props.theme.maxWidth};
   padding: 2rem;
   margin: 0 auto;

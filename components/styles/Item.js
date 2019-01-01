@@ -43,13 +43,16 @@ const StyledItem = styled.div`
     grid-gap: 1px;
     background: ${props => props.theme.lightGrey};
     @media (max-width: 500px) {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
     }
     & > * {
       background: white;
       border: 0;
       font-size: 1rem;
       padding: 1rem;
+      @media (max-width: 500px) {
+        font-size: 0.8rem;
+      }
     }
   }
 `;

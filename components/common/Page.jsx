@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { StyledPage, StyledPageContainer } from '../styles/Page';
+import { StyledPage } from '../styles/Page';
 import Theme from '../styles/Theme';
 import Header from './Header';
 import Meta from './Meta';
@@ -12,12 +12,10 @@ class Page extends Component {
         <StyledPage>
           <Meta />
           <Header />
-          <StyledPageContainer>
-            {this.props.children}
-          </StyledPageContainer>
+          {this.props.children}
         </StyledPage>
       </ThemeProvider>
-    )
+    );
   }
 }
 

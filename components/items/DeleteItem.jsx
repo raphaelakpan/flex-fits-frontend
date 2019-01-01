@@ -2,45 +2,51 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import styled from 'styled-components';
 import ConfirmDialog from './ConfirmDialog';
-import { DELETE_ITEM_MUTATION, ALL_ITEMS_QUERY, ITEMS_PAGINATION_QUERY } from '../queries/items';
+import {
+  DELETE_ITEM_MUTATION,
+  ALL_ITEMS_QUERY,
+  ITEMS_PAGINATION_QUERY
+} from '../queries/items';
 import { CURRENT_USER_QUERY } from '../queries/users';
 import { perPage } from '../../config';
 import ErrorMessage from '../common/ErrorMessage';
 
-
 const StyledContainer = styled.div`
   display: grid;
-  /* padding: 0 !important; */
+  padding: 0 !important;
   button {
     background: #fff;
+    @media (max-width: 500px) {
+      font-size: 0.8rem;
+    }
   }
 `;
 
 class DeleteItem extends Component {
   state = {
-    showDialog: false,
-  }
+    showDialog: false
+  };
 
   toggleDialog = () => {
     this.setState(({ showDialog }) => ({
       showDialog: !showDialog
     }));
-  }
+  };
 
   handleUpdate = (cache, payload) => {
     /** Manually update the cache on the client to match server
      * Hopefully would be relevant in the future
-    */
+     */
     // const data = cache.readQuery({ query: ALL_ITEMS_QUERY });
     // data.items = data.items.filter(item => item.id !== payload.data.deleteItem.id);
     // cache.writeQuery({ query: ALL_ITEMS_QUERY, data });
-  }
+  };
 
-  handleDelete = async (deleteItem) => {
+  handleDelete = async deleteItem => {
     try {
       await deleteItem();
-    } catch { }
-  }
+    } catch {}
+  };
 
   render() {
     const { showDialog } = this.state;
@@ -52,7 +58,10 @@ class DeleteItem extends Component {
         variables={{ id }}
         update={this.handleUpdate}
         refetchQueries={[
-          { query: ALL_ITEMS_QUERY, variables: { skip: (page || 1) * perPage - perPage } },
+          {
+            query: ALL_ITEMS_QUERY,
+            variables: { skip: (page || 1) * perPage - perPage }
+          },
           { query: ITEMS_PAGINATION_QUERY },
           { query: CURRENT_USER_QUERY }
         ]}
@@ -62,23 +71,21 @@ class DeleteItem extends Component {
             <StyledContainer>
               {showDialog && (
                 <ConfirmDialog
-                toggleDialog={this.toggleDialog}
-                handleAction={() => this.handleDelete(deleteItem)}
-                loading={loading}
+                  toggleDialog={this.toggleDialog}
+                  handleAction={() => this.handleDelete(deleteItem)}
+                  loading={loading}
                 >
                   {!loading && error && <ErrorMessage error={error} />}
                   Are you sure you want to delete this?
                 </ConfirmDialog>
               )}
 
-              <button onClick={this.toggleDialog}>
-                {this.props.children}
-              </button>
+              <button onClick={this.toggleDialog}>{this.props.children}</button>
             </StyledContainer>
           );
         }}
       </Mutation>
-    )
+    );
   }
 }
 

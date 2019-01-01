@@ -10,6 +10,7 @@ import formatMoney from '../../lib/formatMoney';
 import Pagination from '../Pagination/Orders';
 import { Center } from '../styles';
 import CurrentUser from '../users/CurrentUser';
+import { StyledContainer } from '../styles/Page';
 
 const count = items => items.reduce((sum, item) => sum + item.quantity, 0);
 export const perPage = 8;
@@ -52,58 +53,60 @@ class Orders extends Component {
   render() {
     const { page } = this.props;
     return (
-      <CurrentUser>
-        {({ currentUser, isAdmin }) => (
-          <Fragment>
-            <Query
-              query={ALL_ORDERS_QUERY}
-              variables={{
-                skip: page * perPage - perPage
-              }}
-              fetchPolicy="network-only"
-            >
-              {({ data: { orders }, loading, error }) => {
-                if (loading)
-                  return (
-                    <div style={{ marginBottom: '30rem' }}>
-                      <Spinner />
-                    </div>
-                  );
-                if (orders.length === 0 && page > 1) {
-                  Router.push('/orders');
-                  return <p>Page not found! Redirecting...</p>;
-                }
-                return (
-                  <StyledOrders>
-                    <h1 className="centered"> All Orders</h1>
-                    {orders.length === 0 && (
-                      <p>
-                        You do not have any orders. Complete your first checkout
-                        to see them here 😁
-                      </p>
-                    )}
-                    {orders.length > 0 && (
-                      <div className="Orders">
-                        {orders.map(order => (
-                          <Orders.Order
-                            key={order.id}
-                            order={order}
-                            currentUser={currentUser}
-                            isAdmin={isAdmin}
-                          />
-                        ))}
+      <StyledContainer>
+        <CurrentUser>
+          {({ currentUser, isAdmin }) => (
+            <Fragment>
+              <Query
+                query={ALL_ORDERS_QUERY}
+                variables={{
+                  skip: page * perPage - perPage
+                }}
+                fetchPolicy="network-only"
+              >
+                {({ data: { orders }, loading, error }) => {
+                  if (loading)
+                    return (
+                      <div style={{ marginBottom: '30rem' }}>
+                        <Spinner />
                       </div>
-                    )}
-                  </StyledOrders>
-                );
-              }}
-            </Query>
-            <Center>
-              <Pagination page={page} />
-            </Center>
-          </Fragment>
-        )}
-      </CurrentUser>
+                    );
+                  if (orders.length === 0 && page > 1) {
+                    Router.push('/orders');
+                    return <p>Page not found! Redirecting...</p>;
+                  }
+                  return (
+                    <StyledOrders>
+                      <h1 className="centered"> All Orders</h1>
+                      {orders.length === 0 && (
+                        <p>
+                          You do not have any orders. Complete your first
+                          checkout to see them here 😁
+                        </p>
+                      )}
+                      {orders.length > 0 && (
+                        <div className="Orders">
+                          {orders.map(order => (
+                            <Orders.Order
+                              key={order.id}
+                              order={order}
+                              currentUser={currentUser}
+                              isAdmin={isAdmin}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </StyledOrders>
+                  );
+                }}
+              </Query>
+              <Center>
+                <Pagination page={page} />
+              </Center>
+            </Fragment>
+          )}
+        </CurrentUser>
+      </StyledContainer>
     );
   }
 }

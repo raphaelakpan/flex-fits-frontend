@@ -57,7 +57,7 @@ class Item extends Component {
                     </a>
                   </Link>
                 )}
-                <AddToCart itemId={item.id} />
+                <AddToCart itemId={item.id} custom />
                 {(isOwner || isAdmin) && (
                   <DeleteItem id={item.id} page={page}>
                     Delete &nbsp; <i className="fas fa-trash" />
