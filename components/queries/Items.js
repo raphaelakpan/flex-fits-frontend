@@ -19,6 +19,7 @@ export const ALL_ITEMS_QUERY = gql`
       largeImage
       user {
         id
+        name
       }
     }
   }
@@ -35,6 +36,7 @@ export const SINGLE_ITEM_QUERY = gql`
       largeImage
       user {
         id
+        name
       }
     }
   }
@@ -47,7 +49,7 @@ export const CREATE_ITEM_MUTATION = gql`
     $price: Int!
     $image: String
     $largeImage: String
-  ){
+  ) {
     createItem(
       data: {
         title: $title
@@ -79,10 +81,8 @@ export const UPDATE_ITEM_MUTATION = gql`
         price: $price
         image: $image
         largeImage: $largeImage
-      },
-      where: {
-        id: $id
       }
+      where: { id: $id }
     ) {
       id
     }

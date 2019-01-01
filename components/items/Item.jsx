@@ -11,8 +11,8 @@ import AddToCart from '../cart/AddToCart';
 
 class Item extends Component {
   static propTypes = {
-    item: PropTypes.object.isRequired,
-  }
+    item: PropTypes.object.isRequired
+  };
 
   render() {
     const { item, page } = this.props;
@@ -20,39 +20,47 @@ class Item extends Component {
     return (
       <CurrentUser>
         {({ currentUser, isAdmin }) => {
-          const isOwner = currentUser && (item.user.id === currentUser.id);
+          const isOwner = currentUser && item.user.id === currentUser.id;
 
           return (
             <StyledItem>
-              {item.image && <img src={item.image} alt={item.Title} /> }
+              {item.image && <img src={item.image} alt={item.Title} />}
               <Title>
-                <Link href={{
-                  pathname: "/item",
-                  query: { id: item.id }
-                }}>
+                <Link
+                  href={{
+                    pathname: '/item',
+                    query: { id: item.id }
+                  }}
+                >
                   <a>{item.title}</a>
                 </Link>
               </Title>
               <PriceTag>{formatMoney(item.price)}</PriceTag>
-              <p>
-                {item.description.length <= 50 ? item.description : item.description.substr(0, 50) + '...'}
+              <p className="item_description">
+                {item.description.length <= 50
+                  ? item.description
+                  : item.description.substr(0, 50) + '...'}
               </p>
+              <small className="item_soldby">
+                Sold By: <em className="grey">{item.user.name}</em>
+              </small>
               <div className="buttonList">
                 {(isOwner || isAdmin) && (
-                  <Link href={{
-                    pathname: "/update",
-                    query: { id: item.id }
-                  }}>
-                    <a>Edit &nbsp; <i className="fas fa-edit"></i></a>
+                  <Link
+                    href={{
+                      pathname: '/update',
+                      query: { id: item.id }
+                    }}
+                  >
+                    <a>
+                      Edit &nbsp; <i className="fas fa-edit" />
+                    </a>
                   </Link>
                 )}
                 <AddToCart itemId={item.id} />
                 {(isOwner || isAdmin) && (
-                  <DeleteItem
-                    id={item.id}
-                    page={page}
-                  >
-                    Delete &nbsp; <i className="fas fa-trash"></i>
+                  <DeleteItem id={item.id} page={page}>
+                    Delete &nbsp; <i className="fas fa-trash" />
                   </DeleteItem>
                 )}
               </div>
@@ -60,7 +68,7 @@ class Item extends Component {
           );
         }}
       </CurrentUser>
-    )
+    );
   }
 }
 

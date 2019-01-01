@@ -18,17 +18,22 @@ const StyledItem = styled.div`
       height: inherit;
     }
   }
-  p {
+  .item_description {
     line-height: 2;
     font-weight: 300;
     flex-grow: 1;
     padding: 0 3rem;
     font-size: 1.5rem;
     color: #777;
+    margin-bottom: 0;
     @media (max-width: 500px) {
       line-height: 1.5;
       font-size: 1rem;
     }
+  }
+  .item_soldby {
+    text-align: right;
+    padding: 0 2rem;
   }
   .buttonList {
     display: grid;
