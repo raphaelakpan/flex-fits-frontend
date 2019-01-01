@@ -4,7 +4,7 @@ export const ItemsList = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 60px;
-  padding: 2rem 0;
+  margin-bottom: 2rem;
   @media (max-width: 500px) {
     grid-template-columns: 1fr;
     grid-gap: 2rem;

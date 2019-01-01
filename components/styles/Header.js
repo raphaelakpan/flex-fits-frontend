@@ -4,6 +4,10 @@ export const Logo = styled.h1`
   font-size: 4rem;
   margin-left: 2rem;
   transform: skew(-5deg);
+  @media (max-width: 500px) {
+    font-size: 2rem;
+    margin: 1rem !important;
+  }
   a {
     padding: 0.5rem 1rem;
     text-decoration: none;
@@ -11,7 +15,7 @@ export const Logo = styled.h1`
     color: white;
     text-transform: uppercase;
   }
-  @media(max-width: 1300px) {
+  @media (max-width: 1300px) {
     margin: 0;
     text-align: center;
     margin: 1.5rem;
@@ -33,9 +37,13 @@ export const StyledHeader = styled.header`
     justify-content: space-between;
     align-items: stretch;
     line-height: 1;
-    @media(max-width: 1300px) {
+    @media (max-width: 1300px) {
       grid-template-columns: 1fr;
       justify-content: center;
+    }
+    @media (max-width: 500px) {
+      border-bottom-width: 5px;
+      line-height: 1.5;
     }
   }
 

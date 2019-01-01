@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Form = styled.form`
-  box-shadow: ${props => props.theme.boxShadow};;
+  box-shadow: ${props => props.theme.boxShadow};
   background: #fff;
   border: 5px solid white;
   padding: 20px;
@@ -53,7 +53,7 @@ const Form = styled.form`
     padding: 0.5rem 1.5rem;
     border-radius: 50px;
     &:hover {
-      opacity: 0.8
+      opacity: 0.8;
     }
   }
   fieldset {
@@ -82,6 +82,7 @@ const Form = styled.form`
   }
   @media (max-width: 500px) {
     font-size: 80%;
+    margin: 0 2rem;
     button,
     input[type='submit'],
     input,

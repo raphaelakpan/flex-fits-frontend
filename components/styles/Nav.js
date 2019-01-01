@@ -49,7 +49,7 @@ export const StyledNav = styled.ul`
         width: calc(100% - 60px);
       }
     }
-    @media(max-width: 1300px) {
+    @media (max-width: 1300px) {
       &:after {
         margin-top: 1.2rem;
       }

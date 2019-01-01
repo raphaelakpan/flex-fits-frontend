@@ -1,16 +1,7 @@
-import styled, { keyframes } from 'styled-components';
-
-const zoom = keyframes`
-  50% {
-    transform: scale(0.1);
-  }
-  100% {
-    transform: translateX(1);
-  }
-`;
+import styled from 'styled-components';
 
 const Button = styled.button`
-  background: ${props => props.theme.primary};
+  background: ${props => props.theme.primary} !important;
   color: white;
   font-weight: 500;
   border: 0;
@@ -22,9 +13,11 @@ const Button = styled.button`
   display: inline-block;
   transition: all 1s;
   border-radius: 50px;
+  @media (max-width: 500px) {
+    font-size: 1rem;
+  }
   &[disabled] {
     opacity: 0.5;
-    animation: ${zoom} 1s linear infinite;
   }
 `;
 

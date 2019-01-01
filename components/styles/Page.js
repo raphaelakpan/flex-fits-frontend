@@ -5,7 +5,7 @@ export const StyledPage = styled.div`
   background: ${props => props.theme.offWhite};
   color: ${props => props.theme.black};
   margin-top: 15rem;
-  padding-top: 3rem;
+  padding-top: 5rem;
   position: absolute;
   top: 0;
   right: 0;
@@ -15,12 +15,13 @@ export const StyledPage = styled.div`
   @media (max-width: 500px) {
     font-size: 80%;
     margin-top: 10rem;
+    padding-top: 3rem;
   }
 `;
 
 export const StyledContainer = styled.div`
   max-width: ${props => props.theme.maxWidth};
-  padding: 2rem;
+  padding: 0 2rem 2rem;
   margin: 0 auto;
 `;
 

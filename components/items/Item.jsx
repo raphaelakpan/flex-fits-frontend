@@ -42,28 +42,30 @@ class Item extends Component {
                   : item.description.substr(0, 50) + '...'}
               </p>
               <small className="item_soldby">
-                Sold By: <em className="grey">{item.user.name}</em>
+                Seller: <em className="grey">{item.user.name}</em>
               </small>
-              <div className="buttonList">
-                {(isOwner || isAdmin) && (
-                  <Link
-                    href={{
-                      pathname: '/update',
-                      query: { id: item.id }
-                    }}
-                  >
-                    <a>
-                      Edit &nbsp; <i className="fas fa-edit" />
-                    </a>
-                  </Link>
-                )}
-                <AddToCart itemId={item.id} custom />
-                {(isOwner || isAdmin) && (
-                  <DeleteItem id={item.id} page={page}>
-                    Delete &nbsp; <i className="fas fa-trash" />
-                  </DeleteItem>
-                )}
-              </div>
+              {currentUser && (
+                <div className="buttonList">
+                  {(isOwner || isAdmin) && (
+                    <Link
+                      href={{
+                        pathname: '/update',
+                        query: { id: item.id }
+                      }}
+                    >
+                      <a>
+                        Edit &nbsp; <i className="fas fa-edit" />
+                      </a>
+                    </Link>
+                  )}
+                  <AddToCart itemId={item.id} custom />
+                  {(isOwner || isAdmin) && (
+                    <DeleteItem id={item.id} page={page}>
+                      Delete &nbsp; <i className="fas fa-trash" />
+                    </DeleteItem>
+                  )}
+                </div>
+              )}
             </StyledItem>
           );
         }}

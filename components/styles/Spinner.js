@@ -1,6 +1,5 @@
 import styled, { keyframes } from 'styled-components';
 
-
 const spin = keyframes`
   from {
     transform: rotate(0deg);
@@ -17,6 +16,6 @@ export const StyledSpinner = styled.div`
   align-items: center;
   .fa {
     animation: ${spin} 1s linear infinite;
-    color: ${props => props.theme.primary}
+    color: ${props => (props.alt ? '#fff' : props.theme.primary)};
   }
 `;

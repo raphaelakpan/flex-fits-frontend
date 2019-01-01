@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const StyledOrders = styled.div`
+  h1 {
+    margin: 0;
+  }
   .Orders {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -82,6 +85,9 @@ export const StyledOrder = styled.div`
   box-shadow: ${props => props.theme.boxShadow};
   padding: 2rem;
   border-top: 10px solid ${props => props.theme.primary};
+  h1 {
+    margin: 0;
+  }
   @media (max-width: 500px) {
     font-size: 70%;
   }

@@ -18,7 +18,7 @@ export const StyledCart = styled.div`
   ${props => props.open && `transform: translateX(0);`};
   @media (max-width: 500px) {
     min-width: 0;
-    width: 250px;
+    width: 300px;
   }
   header {
     border-bottom: 5px solid ${props => props.theme.black};
@@ -61,7 +61,7 @@ export const StyledCartItem = styled.li`
   border: 1px solid ${props => props.theme.lightGrey};
   margin-bottom: 1rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto 1fr;
   padding: 0.5rem;
   background: white;
   @media (max-width: 500px) {

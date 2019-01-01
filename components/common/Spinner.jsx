@@ -1,11 +1,11 @@
 import { StyledSpinner } from '../styles/Spinner';
 
-const Spinner = () => {
+const Spinner = ({ alt }) => {
   return (
-    <StyledSpinner className="loading">
-      <i className="fa fa-2x fa-sun"></i>
+    <StyledSpinner className="loading" alt={alt}>
+      <i className="fa fa-2x fa-sun" />
     </StyledSpinner>
-  )
-}
+  );
+};
 
 export default Spinner;

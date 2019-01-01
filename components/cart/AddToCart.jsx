@@ -1,8 +1,12 @@
 import { Mutation } from 'react-apollo';
+import toastr from 'toastr';
 import { ADD_TO_CART_MUTATION } from '../queries/cart';
 import { CURRENT_USER_QUERY } from '../queries/users';
 import Spinner from '../common/Spinner';
 import Button from '../styles/Button';
+
+toastr.options.positionClass = 'toast-bottom-right';
+toastr.options.progressBar = true;
 
 const AddToCart = ({ itemId, className, custom }) => {
   const AddButton = ({ children, ...props }) =>
@@ -19,9 +23,16 @@ const AddToCart = ({ itemId, className, custom }) => {
       refetchQueries={[{ query: CURRENT_USER_QUERY }]}
     >
       {(addToCard, { loading }) => (
-        <AddButton onClick={addToCard} disabled={loading} className={className}>
+        <AddButton
+          onClick={async () => {
+            await addToCard();
+            toastr.success('Item added to cart successfully!');
+          }}
+          disabled={loading}
+          className={className}
+        >
           {loading ? (
-            <Spinner />
+            <Spinner alt={!custom} />
           ) : (
             <span>
               Add to Cart &nbsp; <i className="fas fa-cart-plus" />
