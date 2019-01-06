@@ -22,7 +22,10 @@ export const StyledOrders = styled.div`
     border-radius: 1rem;
     border: 1px solid ${props => props.theme.borderColor};
     display: grid;
-    border-top: 0.1rem solid ${props => props.theme.primary};
+    transition: all 0.5s;
+    &:hover {
+      border-top: 0.2rem solid ${props => props.theme.primary};
+    }
     @media (max-width: 500px) {
       font-size: 80%;
     }

@@ -1,12 +1,9 @@
 import { Mutation } from 'react-apollo';
-import toastr from 'toastr';
+import toastr from '../../lib/toastr';
 import { ADD_TO_CART_MUTATION } from '../queries/cart';
 import { CURRENT_USER_QUERY } from '../queries/users';
 import Spinner from '../common/Spinner';
 import Button from '../styles/Button';
-
-toastr.options.positionClass = 'toast-bottom-right';
-toastr.options.progressBar = true;
 
 const AddToCart = ({ itemId, className, custom }) => {
   const AddButton = ({ children, ...props }) =>

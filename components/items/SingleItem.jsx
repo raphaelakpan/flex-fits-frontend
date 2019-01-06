@@ -7,6 +7,8 @@ import PriceTag from '../styles/PriceTag';
 import formatMoney from '../../lib/formatMoney';
 import AddToCart from '../cart/AddToCart';
 import CurrentUser from '../users/CurrentUser';
+import Spinner from '../common/Spinner';
+import { StyledContainer } from '../styles/Page';
 
 class SingleItem extends Component {
   render() {
@@ -16,10 +18,19 @@ class SingleItem extends Component {
           <Query
             query={SINGLE_ITEM_QUERY}
             variables={{
-              id: this.props.id
+              id: this.props.id,
             }}
           >
-            {({ data: { item } }, loading, error) => {
+            {({ data: { item } }, loading) => {
+              if (loading) return <Spinner />;
+              if (!item) {
+                return (
+                  <StyledContainer>
+                    No Item was found for ID: <strong>{this.props.id}</strong>
+                  </StyledContainer>
+                );
+              }
+
               return (
                 <StyledItem>
                   <Head>

@@ -16,7 +16,7 @@ const PleaseSignin = props => {
               <StyledContainer>
                 <p className="notice">Please Sign in before continuing...</p>
               </StyledContainer>
-              <Signin />
+              <Signin noRedirectOnSignin />
             </div>
           );
         return props.children;

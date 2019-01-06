@@ -42,6 +42,11 @@ const Form = styled.form`
     border: 1px solid ${props => props.theme.lightGrey};
     width: 70%;
   }
+  .error {
+    color: red;
+    margin: 0.5rem 0;
+  }
+
   button,
   input[type='submit'] {
     width: auto;
@@ -52,6 +57,7 @@ const Form = styled.form`
     font-weight: 600;
     padding: 0.5rem 1.5rem;
     border-radius: 50px;
+    margin: 1rem 0;
     &:hover {
       opacity: 0.8;
     }

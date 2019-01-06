@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import Head from 'next/head';
@@ -12,7 +12,7 @@ import formatMoney from '../../lib/formatMoney';
 
 class Order extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
   };
 
   static OrderItem = ({ item }) => (
@@ -23,7 +23,7 @@ class Order extends Component {
           <Link
             href={{
               pathname: '/item',
-              query: { id: item.originalItem.id }
+              query: { id: item.originalItem.id },
             }}
           >
             <a>
@@ -74,34 +74,43 @@ class Order extends Component {
               <Head>
                 <title>Flex Fits | Order {id} </title>
               </Head>
-              <h1 className="centered">Order</h1>
-              <p>
-                <span>Order ID: </span>
-                <span className="grey">{order.id}</span>
-              </p>
-              <p>
-                <span>Charge: </span>
-                <span className="grey">{order.charge}</span>
-              </p>
-              <p>
-                <span>Date: </span>
-                <span className="grey">
-                  {format(order.createdAt, 'd MMMM YYYY, h:mm a')}
-                </span>
-              </p>
-              <p>
-                <span>Item Count: </span>
-                <span className="grey">{order.items.length}</span>
-              </p>
-              <p>
-                <span>Total: </span>
-                <span className="grey">{formatMoney(order.total)}</span>
-              </p>
-              <div className="order_items">
-                {order.items.map(item => (
-                  <Order.OrderItem key={item.id} item={item} />
-                ))}
-              </div>
+              {!order && (
+                <div>
+                  No Order found for id <strong>{id}</strong>
+                </div>
+              )}
+              {order && (
+                <Fragment>
+                  <h1 className="centered">Order</h1>
+                  <p>
+                    <span>Order ID: </span>
+                    <span className="grey">{order.id}</span>
+                  </p>
+                  <p>
+                    <span>Charge: </span>
+                    <span className="grey">{order.charge}</span>
+                  </p>
+                  <p>
+                    <span>Date: </span>
+                    <span className="grey">
+                      {format(order.createdAt, 'd MMMM YYYY, h:mm a')}
+                    </span>
+                  </p>
+                  <p>
+                    <span>Item Count: </span>
+                    <span className="grey">{order.items.length}</span>
+                  </p>
+                  <p>
+                    <span>Total: </span>
+                    <span className="grey">{formatMoney(order.total)}</span>
+                  </p>
+                  <div className="order_items">
+                    {order.items.map(item => (
+                      <Order.OrderItem key={item.id} item={item} />
+                    ))}
+                  </div>
+                </Fragment>
+              )}
             </StyledOrder>
           );
         }}

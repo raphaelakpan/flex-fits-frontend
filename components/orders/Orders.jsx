@@ -20,7 +20,7 @@ class Orders extends Component {
     <Link
       href={{
         pathname: '/order',
-        query: { id: order.id }
+        query: { id: order.id },
       }}
     >
       <a>
@@ -60,7 +60,7 @@ class Orders extends Component {
               <Query
                 query={ALL_ORDERS_QUERY}
                 variables={{
-                  skip: page * perPage - perPage
+                  skip: page * perPage - perPage,
                 }}
                 fetchPolicy="network-only"
               >
