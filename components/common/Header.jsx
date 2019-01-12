@@ -8,20 +8,21 @@ import AutoComplete from '../search/AutoComplete';
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
-}
+};
 Router.onRouteChangeComplete = () => {
   NProgress.done();
-}
+};
 Router.onRouteChangeError = () => {
   NProgress.done();
-}
+};
 
 const Header = () => (
   <StyledHeader>
     <div className="bar">
       <Logo>
+        <img src="/static/favicon.png" width="50px" />
         <Link href="/">
-          <a> Flex Fits </a>
+          <a>Flex Fits</a>
         </Link>
       </Logo>
       <Nav />
@@ -31,6 +32,6 @@ const Header = () => (
     </div>
     <Cart />
   </StyledHeader>
-)
+);
 
 export default Header;

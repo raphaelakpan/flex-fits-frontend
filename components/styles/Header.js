@@ -1,12 +1,33 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const rotateY = keyframes`
+  from {
+    transform: rotateY(0deg)
+  }
+  to {
+    transform: rotateY(360deg)
+  }
+`;
 
 export const Logo = styled.h1`
   font-size: 4rem;
   margin-left: 2rem;
   transform: skew(-5deg);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  img {
+    animation: ${rotateY} 2s linear infinite;
+  }
   @media (max-width: 500px) {
     font-size: 2rem;
-    margin: 1rem !important;
+    margin: 0 1rem !important;
+    img {
+      width: 40px;
+    }
+    a {
+      padding: 0 !important;
+    }
   }
   a {
     padding: 0.5rem 1rem;

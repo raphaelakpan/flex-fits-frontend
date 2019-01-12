@@ -9,7 +9,7 @@ const Form = styled.form`
   line-height: 1.5;
   font-weight: 600;
   max-width: 600px;
-  margin: 0 auto;
+  margin: 2rem auto;
   position: relative;
   label {
     display: block;
