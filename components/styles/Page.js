@@ -66,10 +66,12 @@ injectGlobal`
   }
 
   .success {
-    color: ${props => props.theme.green};
-    border: 1px solid ${props => props.theme.green};
-    padding: 1rem;
-    background: #fff;
+    color: ${Theme.green};
+    border: 1px solid ${Theme.green};
+    padding: 1rem 3rem;
+    background: rgba(0, 256, 0, 0.1);
+    border-radius: 30px;
+    margin-bottom: 1rem;
   }
 
   .notice {

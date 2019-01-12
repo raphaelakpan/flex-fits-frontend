@@ -5,6 +5,7 @@ import { ALL_USERS_QUERY, UPDATE_PERMISSIONS_MUTATION } from '../queries/users';
 import ErrorMessage from '../common/ErrorMessage';
 import Spinner from '../common/Spinner';
 import StyledTable from '../styles/Table';
+import { StyledContainer } from '../styles/Page';
 
 const PERMISSIONS = [
   'ADMIN',
@@ -17,32 +18,34 @@ const PERMISSIONS = [
 const Permissions = () => (
   <Query fetchPolicy="network-only" query={ALL_USERS_QUERY}>
     {({ data: { users }, loading, error }) => {
-      if (loading) return <Spinner />
-      if (error) return <ErrorMessage error={error} />
+      if (loading) return <Spinner />;
+      if (error)
+        return (
+          <StyledContainer>
+            <ErrorMessage error={error} />;
+          </StyledContainer>
+        );
       return (
-        <div>
+        <StyledContainer>
           <h2>Manage User Permissions</h2>
           <StyledTable>
             <thead>
               <tr>
                 <th>NAME</th>
                 <th>EMAIL</th>
-                {PERMISSIONS.map((permission, index) =>
+                {PERMISSIONS.map((permission, index) => (
                   <th key={index}>{permission}</th>
-                )}
+                ))}
               </tr>
             </thead>
             <tbody>
-              {users.map(user =>
-                <UserPermissions
-                  user={user}
-                  key={user.id}
-                />
-              )}
+              {users.map(user => (
+                <UserPermissions user={user} key={user.id} />
+              ))}
             </tbody>
           </StyledTable>
-        </div>
-      )
+        </StyledContainer>
+      );
     }}
   </Query>
 );
@@ -55,11 +58,11 @@ class UserPermissions extends React.Component {
       email: PropTypes.string,
       permissions: PropTypes.array,
     }).isRequired,
-  }
+  };
 
   state = {
     permissions: this.props.user.permissions,
-  }
+  };
 
   handlePermissionChange = (e, updatePermissions) => {
     const { checked, value } = e.target;
@@ -68,13 +71,18 @@ class UserPermissions extends React.Component {
     if (checked) {
       newPermissions.push(value);
     } else {
-      newPermissions = newPermissions.filter(permission => permission !== value);
+      newPermissions = newPermissions.filter(
+        permission => permission !== value
+      );
     }
     this.setState({ permissions: newPermissions }, async () => {
-      try { await updatePermissions() }
-      catch { this.setState({ permissions: previousPermissions }) }
+      try {
+        await updatePermissions();
+      } catch {
+        this.setState({ permissions: previousPermissions });
+      }
     });
-  }
+  };
 
   render() {
     const { user } = this.props;
@@ -90,7 +98,13 @@ class UserPermissions extends React.Component {
         {(updatePermissions, { loading, error }) => {
           return (
             <Fragment>
-              {!loading && error && <tr><td className="error"><ErrorMessage error={error} /></td></tr>}
+              {!loading && error && (
+                <tr>
+                  <td className="error">
+                    <ErrorMessage error={error} />
+                  </td>
+                </tr>
+              )}
               <tr>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
@@ -102,18 +116,24 @@ class UserPermissions extends React.Component {
                         id={`${user.id}-${permission}`}
                         checked={this.state.permissions.includes(permission)}
                         value={permission}
-                        onChange={e => this.handlePermissionChange(e, updatePermissions)}
+                        onChange={e =>
+                          this.handlePermissionChange(e, updatePermissions)
+                        }
                       />
                     </label>
                   </td>
                 ))}
-                {loading && <td className="spinner"><Spinner /></td>}
+                {loading && (
+                  <td className="spinner">
+                    <Spinner />
+                  </td>
+                )}
               </tr>
             </Fragment>
           );
         }}
       </Mutation>
-    )
+    );
   }
 }
 

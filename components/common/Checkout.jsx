@@ -12,40 +12,47 @@ import { TOGGLE_CART_MUTATION } from '../queries/client';
 
 const STRIPE_KEY = 'pk_test_RPCW5etj6G0pNUUkklfuAGAh';
 const totalItems = cart => {
-  return cart.reduce((sum, cartItem) => sum + cartItem.quantity, 0)
-}
+  return cart.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
+};
 
 class Checkout extends Component {
   handleToken = async (stripeResponse, createOrder, toggleCart) => {
     NProgress.start();
     const response = await createOrder({
-      variables: { token: stripeResponse.id }
+      variables: { token: stripeResponse.id },
     }).catch(error => console.log(error));
     Router.push({
       pathname: '/order',
-      query: { id : response.data.createOrder.id }
+      query: { id: response.data.createOrder.id },
     });
     toggleCart();
-  }
+  };
 
   static Composed = ({ children }) => (
     <CurrentUser>
-      {({ currentUser: { cart, email } }) => (
-        <Mutation mutation={TOGGLE_CART_MUTATION}>
-          {toggleCart => (
-            <Mutation
-              mutation={CREATE_ORDER_MUTATION}
-              refetchQueries={[
-                { query: CURRENT_USER_QUERY }
-              ]}
-            >
-              {createOrder => children({
-                cart, email, toggleCart, createOrder
-              })}
-            </Mutation>
-          )}
-        </Mutation>
-      )}
+      {({ currentUser }) => {
+        if (!currentUser) return null;
+        const { cart, email } = currentUser;
+        return (
+          <Mutation mutation={TOGGLE_CART_MUTATION}>
+            {toggleCart => (
+              <Mutation
+                mutation={CREATE_ORDER_MUTATION}
+                refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+              >
+                {createOrder =>
+                  children({
+                    cart,
+                    email,
+                    toggleCart,
+                    createOrder,
+                  })
+                }
+              </Mutation>
+            )}
+          </Mutation>
+        );
+      }}
     </CurrentUser>
   );
 
@@ -61,13 +68,15 @@ class Checkout extends Component {
             stripeKey={STRIPE_KEY}
             currency="USD"
             email={email}
-            token={stripeResponse => this.handleToken(stripeResponse, createOrder, toggleCart)}
+            token={stripeResponse =>
+              this.handleToken(stripeResponse, createOrder, toggleCart)
+            }
           >
             {this.props.children}
           </StripeCheckout>
         )}
       </Checkout.Composed>
-    )
+    );
   }
 }
 

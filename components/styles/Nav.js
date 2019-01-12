@@ -6,7 +6,69 @@ export const StyledNav = styled.ul`
   display: flex;
   justify-self: end;
   font-size: 2rem;
+  .ItemWithDropDowm {
+    position: relative;
+    &:hover {
+      .NavDropDown {
+        display: block !important;
+      }
+    }
+  }
+  .NavDropDown {
+    display: none;
+    position: absolute;
+    bottom: -7.5rem;
+    height: -webkit-fill-available;
+    width: 150%;
+    left: -7.6rem;
+    .arrow {
+      width: 2rem;
+      height: 2rem;
+      background: #000;
+      position: absolute;
+      top: -1rem;
+      transform: rotate(45deg);
+      right: 7rem;
+      z-index: -1;
+    }
+    i {
+      font-size: 12px;
+    }
+    .current_user {
+      text-transform: none;
+      font-style: italic;
+      font-size: 14px;
+      color: #777;
+      line-height: 1.5;
+      small {
+        margin-left: 0.3rem;
+      }
+    }
+    button,
+    a {
+      padding: 0.5rem 0;
+      margin-left: 1rem;
+      &::before {
+        content: none;
+      }
+    }
+    @media (max-width: 500px) {
+      width: 200%;
+      left: -25%;
+      top: 160%;
+      .arrow {
+        width: 1rem;
+        height: 1rem;
+        top: -0.5rem;
+        right: 7.5rem;
+      }
+      .current_user {
+        font-size: 8px;
+      }
+    }
+  }
   a,
+  .ItemWithDropDowm,
   button {
     padding: 1rem 3rem;
     display: flex;
@@ -47,6 +109,9 @@ export const StyledNav = styled.ul`
       outline: none;
       &:after {
         width: calc(100% - 60px);
+        @media (max-width: 500px) {
+          width: 0;
+        }
       }
     }
     @media (max-width: 1300px) {

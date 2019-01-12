@@ -6,11 +6,7 @@ export const SIGNUP_MUTATION = gql`
     $password: String!
     $name: String!
   ) {
-    signup(
-      email: $email
-      password: $password
-      name: $name
-    ) {
+    signup(email: $email, password: $password, name: $name) {
       id
       name
       email
@@ -19,14 +15,8 @@ export const SIGNUP_MUTATION = gql`
 `;
 
 export const SIGN_IN_MUTATION = gql`
-  mutation SIGN_IN_MUTATION(
-    $email: String!
-    $password: String!
-  ) {
-    signin(
-      email: $email
-      password: $password
-    ) {
+  mutation SIGN_IN_MUTATION($email: String!, $password: String!) {
+    signin(email: $email, password: $password) {
       id
       email
       name
@@ -105,11 +95,26 @@ export const UPDATE_PERMISSIONS_MUTATION = gql`
     $userId: ID!
     $permissions: [Permission]
   ) {
-    updatePermissions(
-      userId: $userId
-      permissions: $permissions
-    ) {
+    updatePermissions(userId: $userId, permissions: $permissions) {
       id
+    }
+  }
+`;
+
+export const UPDATE_USER_MUTATION = gql`
+  mutation UPDATE_USER_MUTATION(
+    $name: String
+    $currentPassword: String
+    $newPassword: String
+    $confirmPassword: String
+  ) {
+    updateUser(
+      name: $name
+      currentPassword: $currentPassword
+      newPassword: $newPassword
+      confirmPassword: $confirmPassword
+    ) {
+      name
     }
   }
 `;
