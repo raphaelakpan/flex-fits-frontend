@@ -1,8 +1,8 @@
 import { Fragment } from 'react';
 import { StyledCartItem } from '../styles/Cart';
 import formatMoney from '../../lib/formatMoney';
-import PriceTag from '../styles/PriceTag'
-import RemoveFromCart from './RemoveFromCart'
+import PriceTag from '../styles/PriceTag';
+import RemoveFromCart from './RemoveFromCart';
 
 const CartItem = ({ cartItem }) => {
   const { item } = cartItem;
@@ -15,8 +15,10 @@ const CartItem = ({ cartItem }) => {
             <PriceTag>{formatMoney(item.price)}</PriceTag>
           </div>
           <div className="CartItem__details">
-            <h3>{item.title} ({cartItem.quantity})</h3>
-            <p>
+            <h3>
+              {item.title} ({cartItem.quantity})
+            </h3>
+            <p className="grey">
               {formatMoney(item.price * cartItem.quantity)}
             </p>
             <RemoveFromCart id={cartItem.id} />
@@ -29,7 +31,7 @@ const CartItem = ({ cartItem }) => {
         </div>
       )}
     </StyledCartItem>
-  )
-}
+  );
+};
 
 export default CartItem;

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const StyledOrders = styled.div`
   h1 {
-    margin: 0;
+    margin: 0 0 2rem 0;
   }
   .Orders {
     display: grid;
@@ -83,11 +83,10 @@ export const StyledOrders = styled.div`
 export const StyledOrder = styled.div`
   max-width: 700px;
   background: #fff;
-  margin: 0 auto;
+  margin: 0 auto 5rem;
   border: 1px solid ${props => props.theme.offWhite};
   box-shadow: ${props => props.theme.boxShadow};
   padding: 2rem;
-  border-top: 10px solid ${props => props.theme.primary};
   h1 {
     margin: 0;
   }
@@ -125,11 +124,14 @@ export const StyledOrder = styled.div`
   .item__details {
     h2 {
       margin: 0;
+      &:hover {
+        text-decoration: underline;
+      }
     }
     span {
       margin-left: 1rem;
     }
-    padding-right: 1rem;
+    padding: 1rem;
     .details__table {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;

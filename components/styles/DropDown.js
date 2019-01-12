@@ -19,8 +19,9 @@ const DropDownItem = styled.div`
   ${props => (props.highlighted ? 'padding-left: 2rem;' : null)};
   display: flex;
   align-items: center;
-  border-left: 10px solid ${props => (props.highlighted ? props.theme.primary : 'white')};
-  ${props => props.className !== 'no__pointer' ? 'cursor: pointer;' : null }
+  border-left: 10px solid
+    ${props => (props.highlighted ? props.theme.primary : 'white')};
+  ${props => (props.className !== 'no__pointer' ? 'cursor: pointer;' : null)}
   img {
     margin-right: 10px;
   }
@@ -74,7 +75,7 @@ const SearchStyles = styled.div`
     position: absolute;
     font-size: 2.5rem;
     color: #afafaf;
-    right: 1rem;
+    right: 1.5rem;
     top: 1rem;
   }
   @media (max-width: 500px) {

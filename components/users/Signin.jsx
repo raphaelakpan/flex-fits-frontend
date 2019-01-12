@@ -55,7 +55,7 @@ class Signin extends Component {
               }
             >
               <Center>
-                <h2>Sign into your account</h2>
+                <h2>Sign in to your account</h2>
               </Center>
               {loading && <Spinner />}
               {error && <ErrorMessage error={error} />}

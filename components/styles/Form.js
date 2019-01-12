@@ -13,7 +13,8 @@ const Form = styled.form`
   position: relative;
   label {
     display: block;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    font-size: 16px;
     .price {
       color: ${props => props.theme.primary};
       font-size: 20px;
@@ -23,14 +24,15 @@ const Form = styled.form`
   textarea,
   select {
     width: 100%;
-    padding: 0.5rem;
+    padding: 1rem;
     font-size: 1.5rem;
     border: 1px solid ${props => props.theme.lightGrey};
     color: #666;
     margin-top: 0.3rem;
     &:focus {
       outline: 0;
-      border-color: ${props => props.theme.primary};
+      border: 1px solid ${props => props.theme.lightGrey};
+      background: ${props => props.theme.offWhite};
     }
   }
   textarea {
@@ -55,7 +57,7 @@ const Form = styled.form`
     border: 0;
     font-size: 2rem;
     font-weight: 600;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 3rem;
     border-radius: 50px;
     margin: 1rem 0;
     &:hover {
@@ -93,6 +95,7 @@ const Form = styled.form`
     input[type='submit'],
     input,
     textarea,
+    label,
     select {
       font-size: 1rem;
     }

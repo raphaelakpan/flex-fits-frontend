@@ -16,7 +16,7 @@ class Order extends Component {
   };
 
   static OrderItem = ({ item }) => (
-    <div className="order_item grey">
+    <div className="order_item">
       <img src={item.image} alt={item.title} width="100" />
       <div className="item__details">
         {item.originalItem ? (
@@ -35,21 +35,24 @@ class Order extends Component {
         )}
         <div className="details__table">
           <div>
-            Qty: <span>{item.quantity}</span>
+            Qty: <span className="grey">{item.quantity}</span>
           </div>
           <div>
-            Price: <span>{formatMoney(item.price)}</span>
+            Price: <span className="grey">{formatMoney(item.price)}</span>
           </div>
           <div>
-            Subtotal: <span>{formatMoney(item.price * item.quantity)}</span>
+            Subtotal:{' '}
+            <span className="grey">
+              {formatMoney(item.price * item.quantity)}
+            </span>
           </div>
         </div>
         {item.soldBy && (
           <small>
-            Sold by: <em>{item.soldBy.name}</em>
+            Sold by: <em className="grey">{item.soldBy.name}</em>
           </small>
         )}
-        <div>
+        <div className="grey">
           <em>
             {item.description.length <= 70
               ? item.description

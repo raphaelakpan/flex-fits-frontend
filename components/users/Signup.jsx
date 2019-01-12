@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import Router from 'next/router';
+import Link from 'next/link';
 import toastr from '../../lib/toastr';
 import Form from '../styles/Form';
 import { SIGNUP_MUTATION, CURRENT_USER_QUERY } from '../queries/users';
@@ -127,7 +128,12 @@ class Signup extends Component {
                     <div className="error">Passwords do not match!</div>
                   )}
                 </label>
-                <button>Sign up</button>
+                <div className="options">
+                  <button>Sign up</button>
+                  <Link href="/signin">
+                    <a>Sign in</a>
+                  </Link>
+                </div>
               </fieldset>
             </Form>
           );

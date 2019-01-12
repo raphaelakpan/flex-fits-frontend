@@ -18,7 +18,7 @@ export const StyledCart = styled.div`
   ${props => props.open && `transform: translateX(0);`};
   @media (max-width: 500px) {
     min-width: 0;
-    width: 300px;
+    width: 250px;
   }
   header {
     border-bottom: 5px solid ${props => props.theme.black};
@@ -51,8 +51,9 @@ export const StyledCart = styled.div`
   button {
     background: #fff;
     @media (max-width: 500px) {
-      padding: 2px 5px;
-      font-size: 10px;
+      padding: 2px 8px;
+      font-size: 8px;
+      margin-top: 0.5rem;
     }
   }
 `;
@@ -64,9 +65,6 @@ export const StyledCartItem = styled.li`
   grid-template-columns: auto 1fr;
   padding: 0.5rem;
   background: white;
-  @media (max-width: 500px) {
-    font-size: 80%;
-  }
   .CartItem__image {
     position: relative;
     span {
@@ -80,15 +78,24 @@ export const StyledCartItem = styled.li`
       margin: 0;
     }
   }
+  @media (max-width: 500px) {
+    font-size: 80%;
+    .CartItem__image {
+      img {
+        width: 70px;
+      }
+    }
+  }
 `;
 
 export const StyledRemoveCartButton = styled.button`
-  border: 1px solid;
-  padding: 5px 10px;
+  border: 1px solid ${props => props.theme.lightGrey};
+  padding: 5px 15px;
   border-radius: 50px;
+  color: #777;
   &:hover {
-    background: #000;
-    color: #fff;
+    color: #000;
+    border-color: #000;
   }
   .error {
     position: absolute;

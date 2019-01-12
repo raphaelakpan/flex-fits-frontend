@@ -7,6 +7,9 @@ const StyledItem = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  &:hover {
+    transform: scale(1.05);
+  }
   @media (max-width: 500px) {
     font-size: 80%;
   }
@@ -14,6 +17,8 @@ const StyledItem = styled.div`
     width: 100%;
     height: 400px;
     object-fit: contain;
+    margin-top: 2rem;
+    cursor: pointer;
     @media (max-width: 500px) {
       height: inherit;
     }
@@ -33,7 +38,7 @@ const StyledItem = styled.div`
   }
   .item_soldby {
     text-align: right;
-    padding: 0 2rem;
+    padding: 0 2rem 1rem 0;
   }
   .buttonList {
     display: grid;

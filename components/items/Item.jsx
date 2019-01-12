@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import Router from 'next/router';
 import StyledItem from '../styles/Item';
 import Title from '../styles/Title';
 import PriceTag from '../styles/PriceTag';
@@ -11,7 +12,7 @@ import AddToCart from '../cart/AddToCart';
 
 class Item extends Component {
   static propTypes = {
-    item: PropTypes.object.isRequired
+    item: PropTypes.object.isRequired,
   };
 
   render() {
@@ -24,12 +25,23 @@ class Item extends Component {
 
           return (
             <StyledItem>
-              {item.image && <img src={item.image} alt={item.Title} />}
+              {item.image && (
+                <img
+                  src={item.image}
+                  alt={item.Title}
+                  onClick={() => {
+                    Router.push({
+                      pathname: '/item',
+                      query: { id: item.id },
+                    });
+                  }}
+                />
+              )}
               <Title>
                 <Link
                   href={{
                     pathname: '/item',
-                    query: { id: item.id }
+                    query: { id: item.id },
                   }}
                 >
                   <a>{item.title}</a>
@@ -50,7 +62,7 @@ class Item extends Component {
                     <Link
                       href={{
                         pathname: '/update',
-                        query: { id: item.id }
+                        query: { id: item.id },
                       }}
                     >
                       <a>
