@@ -40,7 +40,8 @@ class Items extends Component {
                 Router.push('/');
                 return <p>Page not found! Redirecting...</p>;
               }
-              if (items.length === 0) return <p>No items to display</p>;
+              if (items.length === 0)
+                return <h2 className="centered">No items to display 🌞 </h2>;
 
               return (
                 <ItemsList>
