@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import Router from 'next/router';
-import { ALL_ITEMS_QUERY } from '../queries/items';
+import { ALL_ITEMS_QUERY } from '../queries/Items';
 import { ItemsList } from '../styles/Items';
 import { Center } from '../styles';
 import Item from './Item';
@@ -25,7 +25,7 @@ class Items extends Component {
             fetchPolicy="network-only"
             query={ALL_ITEMS_QUERY}
             variables={{
-              skip: page * perPage - perPage
+              skip: page * perPage - perPage,
             }}
           >
             {({ data: { items }, loading, error }) => {

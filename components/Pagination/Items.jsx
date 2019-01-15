@@ -1,5 +1,5 @@
 import { Query } from 'react-apollo';
-import { ITEMS_PAGINATION_QUERY } from '../queries/items';
+import { ITEMS_PAGINATION_QUERY } from '../queries/Items';
 import { perPage } from '../../config';
 import Pagination from './index';
 

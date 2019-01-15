@@ -5,8 +5,8 @@ import ConfirmDialog from './ConfirmDialog';
 import {
   DELETE_ITEM_MUTATION,
   ALL_ITEMS_QUERY,
-  ITEMS_PAGINATION_QUERY
-} from '../queries/items';
+  ITEMS_PAGINATION_QUERY,
+} from '../queries/Items';
 import { CURRENT_USER_QUERY } from '../queries/users';
 import { perPage } from '../../config';
 import ErrorMessage from '../common/ErrorMessage';
@@ -24,12 +24,12 @@ const StyledContainer = styled.div`
 
 class DeleteItem extends Component {
   state = {
-    showDialog: false
+    showDialog: false,
   };
 
   toggleDialog = () => {
     this.setState(({ showDialog }) => ({
-      showDialog: !showDialog
+      showDialog: !showDialog,
     }));
   };
 
@@ -60,10 +60,10 @@ class DeleteItem extends Component {
         refetchQueries={[
           {
             query: ALL_ITEMS_QUERY,
-            variables: { skip: (page || 1) * perPage - perPage }
+            variables: { skip: (page || 1) * perPage - perPage },
           },
           { query: ITEMS_PAGINATION_QUERY },
-          { query: CURRENT_USER_QUERY }
+          { query: CURRENT_USER_QUERY },
         ]}
       >
         {(deleteItem, { loading, error }) => {

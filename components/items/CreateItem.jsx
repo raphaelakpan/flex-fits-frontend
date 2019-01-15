@@ -3,7 +3,7 @@ import { Mutation } from 'react-apollo';
 import Router from 'next/router';
 import formatMoney from '../../lib/formatMoney';
 import Form from '../styles/Form';
-import { CREATE_ITEM_MUTATION } from '../queries/items';
+import { CREATE_ITEM_MUTATION } from '../queries/Items';
 import ErrorMessage from '../common/ErrorMessage';
 import Spinner from '../common/Spinner';
 
@@ -16,20 +16,21 @@ class CreateItem extends Component {
       largeImage: '',
       price: 0,
     },
-    uploading: false
-  }
+    uploading: false,
+  };
 
   handleChange = e => {
-    const getValue = value => (type === 'number' && value ? parseFloat(value) : value);
+    const getValue = value =>
+      type === 'number' && value ? parseFloat(value) : value;
 
     const { name, type, value } = e.target;
     this.setState({
       item: {
         ...this.state.item,
-        [name]: getValue(value)
-      }
+        [name]: getValue(value),
+      },
     });
-  }
+  };
 
   handleSubmit = async (e, createItem) => {
     e.preventDefault();
@@ -37,10 +38,10 @@ class CreateItem extends Component {
       const response = await createItem();
       Router.push({
         pathname: '/item',
-        query: { id: response.data.createItem.id }
+        query: { id: response.data.createItem.id },
       });
     } catch {}
-  }
+  };
 
   handleFileUpload = async e => {
     const { files } = e.target;
@@ -48,35 +49,41 @@ class CreateItem extends Component {
       return this.setState({
         item: {
           ...this.state.item,
-          image: "",
-          largeImage: "",
-        }
+          image: '',
+          largeImage: '',
+        },
       });
-    };
+    }
 
     this.toggleUploading();
     const data = new FormData();
     data.append('file', files[0]);
     data.append('upload_preset', 'flexfits');
 
-    const response = await fetch('https://api.cloudinary.com/v1_1/raphaelakpan/image/upload', {
-      method: 'POST',
-      body: data
-    });
+    const response = await fetch(
+      'https://api.cloudinary.com/v1_1/raphaelakpan/image/upload',
+      {
+        method: 'POST',
+        body: data,
+      }
+    );
 
     const file = await response.json();
-    this.setState({
-      item: {
-        ...this.state.item,
-        image: file.secure_url,
-        largeImage: file.eager[0].secure_url,
-      }
-    }, this.toggleUploading);
-  }
+    this.setState(
+      {
+        item: {
+          ...this.state.item,
+          image: file.secure_url,
+          largeImage: file.eager[0].secure_url,
+        },
+      },
+      this.toggleUploading
+    );
+  };
 
   toggleUploading = () => {
     this.setState(({ uploading }) => ({ uploading: !uploading }));
-  }
+  };
 
   render() {
     const { uploading, item } = this.state;
@@ -88,7 +95,7 @@ class CreateItem extends Component {
             <h2>Sell an Item</h2>
             {error && <ErrorMessage error={error} />}
             <fieldset disabled={loading} aria-busy={loading}>
-              {(loading || uploading) && <Spinner /> }
+              {(loading || uploading) && <Spinner />}
               <label htmlFor="file">
                 Image
                 <input
@@ -99,8 +106,10 @@ class CreateItem extends Component {
                   accept="image/*"
                   onChange={this.handleFileUpload}
                   required
-                  />
-                {image && <img className="preview" src={image} alt="Image Preview"/> }
+                />
+                {image && (
+                  <img className="preview" src={image} alt="Image Preview" />
+                )}
               </label>
 
               <label htmlFor="title">
@@ -113,7 +122,7 @@ class CreateItem extends Component {
                   value={title}
                   onChange={this.handleChange}
                   required
-                  />
+                />
               </label>
 
               <label htmlFor="price">
@@ -126,7 +135,7 @@ class CreateItem extends Component {
                   value={price}
                   onChange={this.handleChange}
                   required
-                  />
+                />
                 <div className="price">{formatMoney(price || 0)}</div>
               </label>
 
@@ -140,7 +149,7 @@ class CreateItem extends Component {
                   onChange={this.handleChange}
                   required
                   rows="5"
-                  />
+                />
               </label>
 
               <button type="submit">Submit</button>
@@ -148,7 +157,7 @@ class CreateItem extends Component {
           </Form>
         )}
       </Mutation>
-    )
+    );
   }
 }
 

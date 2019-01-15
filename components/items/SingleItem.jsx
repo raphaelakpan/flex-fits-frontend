@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import Head from 'next/head';
-import { SINGLE_ITEM_QUERY } from '../queries/items';
+import { SINGLE_ITEM_QUERY } from '../queries/Items';
 import { StyledItem } from '../styles/SingleItem';
 import PriceTag from '../styles/PriceTag';
 import formatMoney from '../../lib/formatMoney';
