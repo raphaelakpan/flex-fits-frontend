@@ -19,7 +19,7 @@ export const StyledItem = styled.div`
     object-fit: contain;
   }
   .details {
-    padding: 2rem;
+    padding: 2rem 3rem;
     font-size: 2rem;
     border: 1px solid ${props => props.theme.borderColor};
     background: ${props => props.theme.offWhite};
@@ -27,7 +27,8 @@ export const StyledItem = styled.div`
       margin: 0;
     }
     .description {
-      margin: 2rem 0;
+      margin: 3rem 0;
+      white-space: pre-wrap;
     }
     @media (max-width: 500px) {
       .title {
@@ -36,6 +37,7 @@ export const StyledItem = styled.div`
       .description {
         line-height: 1.5;
         font-size: 12px;
+        margin: 2rem 0;
       }
     }
   }

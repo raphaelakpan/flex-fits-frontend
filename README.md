@@ -1,4 +1,4 @@
-## Flex Fits (Backend)
+## Flex Fits (Frontend)
 
 Flex Fits is a sample online store 🛍 . This is the Frontend of the application.
 
@@ -9,10 +9,18 @@ Frontend APP ➡ [Hosted on Heroku](https://flex-fits-frontend.herokuapp.com)
 > - Default admin **Account** 👉 _admin@flexfits.com_. **Password** 👉 _awesomeapp_.
 >
 > You can upgrade a normal user to an admin but cannot edit this default admin account
+>
+> **N/B**: Do NOT use your real credit/debit card to checkout. Use any Stripe demo cards
+>
+> - _**Sample Card**_: 4242 4242 4242 4242. **_CVC_**: 222
 
 ---
 
 ### Features ✨
+
+✔ Mobile-responsive
+
+✔ Custom styling (No CSS framework/library).
 
 ✔ User Authentication (Signup and Signin)
 
@@ -20,7 +28,7 @@ Frontend APP ➡ [Hosted on Heroku](https://flex-fits-frontend.herokuapp.com)
 
 ✔ Password Reset (Forget Password)
 
-✔ Password validations
+✔ Password validations (can't contain name or email)
 
 ✔ Search (Items)
 
