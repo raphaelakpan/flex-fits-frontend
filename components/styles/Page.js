@@ -1,4 +1,4 @@
-import styled, { injectGlobal } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import Theme from './Theme';
 
 export const StyledPage = styled.div`
@@ -26,7 +26,7 @@ export const StyledContainer = styled.div`
 `;
 
 // Global styles for the app
-injectGlobal`
+export const GlobalStyles = createGlobalStyle`
   html {
     box-sizing: border-box;
     font-size: 10px;
