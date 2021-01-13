@@ -85,7 +85,6 @@ export const StyledAccountForm = styled.form`
   fieldset {
     padding: 0;
     border: none;
-    display: flex;
     label {
       margin: 1rem 0 2rem 0;
       display: flex;
